@@ -207,7 +207,7 @@ footer code { font-family: var(--font-mono); font-size: 12px; color: var(--fg); 
       <div class="eyebrow">Prometheus Pantheon · The Ember Loom</div>
       <h1>Ember Generator</h1>
       <p class="law">The flame cannot be stolen. It can only be given.</p>
-      <p class="intro">An ember is something real you give to the world: you make, teach, plant, fix or help. The brightest embers use both hands: AI helps you plan or build, and you do the real deed and post the action shot. Pick how much time you have, draw an idea, do it well, and post the proof with #PrometheusEmber. Every 50 embers, the community weaves the next chapter of Loria.</p>
+      <p class="intro">An ember is something real you give to the world: you make, teach, plant, fix or help. The brightest embers use both hands: AI helps you plan or build, and you do the real deed and post the action shot. Pick how much time you have, draw an idea, do it well, and post the action shot on X or TikTok with #PrometheusEmber. Every 50 embers, the community weaves the next chapter of Loria.</p>
     </div>
   </header>
 
@@ -249,6 +249,21 @@ footer code { font-family: var(--font-mono); font-size: 12px; color: var(--fg); 
       <p>One shared theme per day, so newcomers always know what to do today. Every theme works in five minutes or in an afternoon.</p>
     </div>
     <div class="week" id="week"></div>
+  </section>
+
+  <section aria-labelledby="shot-title">
+    <div class="section-head">
+      <div class="eyebrow">Proof on social</div>
+      <h2 id="shot-title">Post the action shot</h2>
+      <p>Embers live in public, where anyone can see them: X, TikTok, Instagram Reels or YouTube Shorts. Always tag #PrometheusEmber so the whole Loom can be found in one search.</p>
+    </div>
+    <div class="week">
+      <div class="day"><div class="num">Film</div><h3>Before, during, after</h3><p>15 to 30 seconds, vertical. Show the place before, your hands doing it, and the result.</p></div>
+      <div class="day"><div class="num">Show</div><h3>The deed, not the face</h3><p>Hands, tools, plants and results. No faces, names, house numbers or street signs without consent.</p></div>
+      <div class="day"><div class="num">Say</div><h3>What AI did, what you did</h3><p>One honest line each. If AI only planned it, say so. That honesty is what makes it an ember.</p></div>
+      <div class="day"><div class="num">Tag</div><h3>#PrometheusEmber</h3><p>Plus #PrometheusPantheon. On X, attach the photo or clip to the post. On TikTok and Reels, paste the caption.</p></div>
+      <div class="day"><div class="num">Drop</div><h3>Share the link in Telegram</h3><p>Paste your post link in the group with /ember. Tenders count it and repost it from the project account.</p></div>
+    </div>
   </section>
 
   <section class="guides">
@@ -486,7 +501,28 @@ function matches() {
 
 function postText(idea) {
   const hands = idea.ai ? `\n🤖 AI helped with: [what the AI did]\n🙌 I did: [what you did]\n` : "";
-  return `#PrometheusEmber 🌱\n\n${idea.action}.\n${hands}\n📸 [add your ${idea.proof}]\n\nThe flame cannot be stolen. It can only be given.\n#PrometheusPantheon`;
+  return `#PrometheusEmber 🌱\n\n${idea.action}.\n${hands}\n📸 [attach your ${idea.proof}]\n\nThe flame cannot be stolen. It can only be given.\n#PrometheusPantheon`;
+}
+
+function captionText(idea) {
+  const hands = idea.ai ? `\n🤖 AI helped with: [what the AI did]\n🙌 I did: [what you did]\n` : "";
+  const tags = `#PrometheusEmber #PrometheusPantheon #DoGood${idea.ai ? " #AIforGood" : ""}`;
+  return `${idea.action} 🌱\n${hands}\nThe flame cannot be stolen. It can only be given.\n\n${tags}`;
+}
+
+function copyButton(btn, text, pre) {
+  btn.addEventListener("click", () => {
+    const label = btn.textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = "Copied";
+      setTimeout(() => { btn.textContent = label; }, 1800);
+    }).catch(() => {
+      const range = document.createRange();
+      range.selectNodeContents(pre);
+      const sel = getSelection(); sel.removeAllRanges(); sel.addRange(range);
+      btn.textContent = "Selected, press Ctrl/Cmd+C";
+    });
+  });
 }
 
 function esc(s) {
@@ -499,26 +535,26 @@ function render(idea) {
     return;
   }
   const text = postText(idea);
+  const caption = captionText(idea);
   result.innerHTML = `
     <div class="tags"><span class="tag">${idea.kind}</span><span class="tag">${idea.time}</span><span class="tag">${idea.place}</span>${idea.ai ? `<span class="tag">Both hands · AI + you</span>` : ""}</div>
     <h3>${esc(idea.title)}</h3>
     <p class="why">${esc(idea.why)}</p>
     <div><div class="eyebrow label">Do it well</div><ul>${idea.tips.map(t => `<li>${esc(t)}</li>`).join("")}</ul></div>
     <div><div class="eyebrow label">Proof to post</div><p>${esc(idea.proof[0].toUpperCase() + idea.proof.slice(1))}.</p></div>
-    <div><div class="eyebrow label">Your post</div><pre class="post" id="post-text">${esc(text)}</pre></div>
+    <div><div class="eyebrow label">Post on X</div><pre class="post" id="post-text">${esc(text)}</pre></div>
     <div class="actions">
-      <button type="button" class="btn" id="copy">Copy post</button>
-      <a class="btn" href="https://x.com/intent/post?text=${encodeURIComponent(text)}" target="_blank" rel="noopener">Open in X</a>
-    </div>`;
-  document.getElementById("copy").addEventListener("click", e => {
-    const btn = e.currentTarget;
-    navigator.clipboard.writeText(text).then(() => { btn.textContent = "Copied"; }).catch(() => {
-      const range = document.createRange();
-      range.selectNodeContents(document.getElementById("post-text"));
-      const sel = getSelection(); sel.removeAllRanges(); sel.addRange(range);
-      btn.textContent = "Selected, press Ctrl/Cmd+C";
-    });
-  });
+      <a class="btn" href="https://x.com/intent/post?text=${encodeURIComponent(text)}" target="_blank" rel="noopener">Post on X</a>
+      <button type="button" class="btn" id="copy-x">Copy X post</button>
+    </div>
+    <div><div class="eyebrow label">TikTok · Reels · Shorts caption</div><pre class="post" id="caption-text">${esc(caption)}</pre></div>
+    <div class="actions">
+      <button type="button" class="btn" id="copy-cap">Copy caption</button>
+      <a class="btn" href="https://www.tiktok.com/upload" target="_blank" rel="noopener">Open TikTok upload</a>
+    </div>
+    <p class="count">Then drop your post link in the Telegram group with /ember so the Tenders can count it.</p>`;
+  copyButton(document.getElementById("copy-x"), text, document.getElementById("post-text"));
+  copyButton(document.getElementById("copy-cap"), caption, document.getElementById("caption-text"));
 }
 
 function draw() {

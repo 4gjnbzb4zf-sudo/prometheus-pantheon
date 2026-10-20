@@ -7,8 +7,9 @@ This folder was started by one person, but **no one is in charge of it**.
 
 ## How an ember works
 1. Do something real and useful: make, teach, plant, fix, help.
-2. Post the proof (a link, a photo, a short note) with **#PrometheusEmber** on X or `/ember` in the Telegram group.
-3. It is an ember if it is **honest and verifiable**. That's the only test.
+2. Post the proof **publicly on social media** (X, TikTok, Instagram Reels, YouTube Shorts) with **#PrometheusEmber**: a photo or short clip of the real deed.
+3. Drop the post link in the Telegram group with `/ember`, so Tenders can count it and repost it.
+4. It is an ember if it is **honest and verifiable**. That's the only test.
 
 **The brightest embers use both hands:** AI helps you plan, write, translate or build, and you do the real thing in the real world. Post the **action shot** (a photo of the real deed) and say honestly what the AI did and what you did.
 

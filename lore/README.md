@@ -19,7 +19,7 @@ This folder was started by one person, but **no one is in charge of it**.
 - Contributors whose embers appear in a chapter are credited in it.
 
 ## The rules (the Loom's law)
-- **The flame can't be stolen, only given.** No token rewards for embers. No paid engagement.
+- **The flame can't be stolen, only given.** Embers are never paid or traded. Gifts are free, person to person, after the deed (see The Hearth). No paid engagement.
 - **Honesty first.** Fake or unverifiable embers don't count.
 - **No leaderboard.** One shared flame, no ranking of people.
 - **No spam.** Don't flood Truth Terminal, Andy or anyone else with replies.

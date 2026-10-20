@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prometheus Ember Generator</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=VT323&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: terminal-phosphor brand (from the Prometheus banner). Single dark look by choice.
+   Generator first, then the week plan, then the two short guides. */
+:root {
+  --bg: #040705;
+  --surface: #09110b;
+  --raise: #0e1a11;
+  --line: #1b2f20;
+  --fg: #d6f0d9;
+  --muted: #8aa88f;
+  --flame: #8dffa6;
+  --flame-dim: #3f9a58;
+  --font-display: "VT323", "IBM Plex Mono", ui-monospace, monospace;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+}
+.wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding-block: 32px 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid;
+  gap: 56px;
+}
+h1, h2, h3 { text-wrap: balance; margin: 0; font-weight: 400; }
+p { margin: 0; }
+a { color: var(--flame); }
+:focus-visible { outline: 2px solid var(--flame); outline-offset: 3px; }
+
+/* Hero */
+.hero { display: grid; grid-template-columns: 140px 1fr; gap: 24px; align-items: center; }
+.hero canvas { width: 140px; height: 180px; display: block; }
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 8vw, 76px);
+  line-height: .9;
+  color: var(--flame);
+  text-shadow: 0 0 18px rgba(141, 255, 166, .35);
+  letter-spacing: .02em;
+}
+.hero .law { font-family: var(--font-mono); color: var(--muted); font-size: 14px; margin-top: 12px; letter-spacing: .02em; }
+.hero .intro { margin-top: 14px; max-width: 60ch; }
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  color: var(--flame-dim);
+}
+.section-head { display: grid; gap: 6px; margin-bottom: 20px; }
+.section-head h2 { font-family: var(--font-display); font-size: 40px; line-height: 1; color: var(--fg); }
+.section-head p { color: var(--muted); max-width: 62ch; }
+
+/* Generator */
+.gen { display: grid; grid-template-columns: minmax(0, 320px) minmax(0, 1fr); gap: 24px; align-items: start; }
+.filters { display: grid; gap: 18px; }
+.filter { display: grid; gap: 8px; border: 0; padding: 0; margin: 0; min-width: 0; }
+.filter legend { padding: 0; margin-bottom: 8px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip input { position: absolute; opacity: 0; pointer-events: none; }
+.chip span {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  cursor: pointer;
+  user-select: none;
+}
+.chip input:checked + span { border-color: var(--flame); color: var(--bg); background: var(--flame); }
+.chip input:focus-visible + span { outline: 2px solid var(--flame); outline-offset: 2px; }
+
+.draw {
+  font-family: var(--font-display);
+  font-size: 28px;
+  line-height: 1;
+  padding: 14px 18px;
+  background: transparent;
+  color: var(--flame);
+  border: 1px solid var(--flame);
+  border-radius: 6px;
+  cursor: pointer;
+  text-shadow: 0 0 10px rgba(141, 255, 166, .4);
+}
+.draw:hover { background: rgba(141, 255, 166, .08); }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 24px;
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  box-shadow: 0 0 0 1px rgba(141, 255, 166, .04), 0 0 40px rgba(141, 255, 166, .05);
+}
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--flame);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 2px 8px;
+}
+.card h3 { font-family: var(--font-display); font-size: 36px; line-height: 1.05; color: var(--flame); }
+.card .why { color: var(--fg); }
+.card ul { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
+.card .label { margin-bottom: 6px; }
+.post {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  white-space: pre-wrap;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 12px 14px;
+  margin: 0;
+  overflow-x: auto;
+}
+.actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.btn {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: var(--raise);
+  color: var(--fg);
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn:hover { border-color: var(--flame-dim); }
+.count { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+.empty { color: var(--muted); }
+
+/* Week */
+.week { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+.day {
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+  display: grid;
+  gap: 6px;
+  align-content: start;
+}
+.day .num { font-family: var(--font-display); font-size: 30px; color: var(--flame); line-height: 1; }
+.day h3 { font-family: var(--font-body); font-weight: 600; font-size: 16px; }
+.day p { color: var(--muted); font-size: 15px; }
+
+/* Guides */
+.guides { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px; }
+.guide ol { margin: 0; padding-left: 22px; display: grid; gap: 12px; }
+.guide li::marker { font-family: var(--font-mono); color: var(--flame-dim); }
+.guide li strong { color: var(--fg); font-weight: 600; }
+.guide li span { color: var(--muted); }
+
+footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); padding-top: 20px; display: grid; gap: 4px; }
+footer code { font-family: var(--font-mono); font-size: 12px; color: var(--fg); word-break: break-all; }
+
+@media (max-width: 760px) {
+  .gen, .guides { grid-template-columns: 1fr; }
+  .hero { grid-template-columns: 1fr; }
+  .hero canvas { width: 96px; height: 124px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+</style>
+<meta name="description" content="Draw a real-world ember idea, do it well, post the proof with #PrometheusEmber. The flame cannot be stolen. It can only be given.">
+<meta property="og:title" content="Prometheus Ember Generator">
+<meta property="og:description" content="Find a real-world good deed to do today, do it well, post the proof with #PrometheusEmber.">
+<meta property="og:image" content="https://4gjnbzb4zf-sudo.github.io/prometheus-pantheon/media/banners/og-link-preview-1200x630.jpg">
+<meta property="og:url" content="https://4gjnbzb4zf-sudo.github.io/prometheus-pantheon/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="media/avatar/avatar-monogram-512.png">
+<style>html,body{margin:0} img{max-width:100%} [hidden]{display:none!important}</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="hero">
+    <canvas id="flame" width="280" height="360" aria-hidden="true"></canvas>
+    <div>
+      <div class="eyebrow">Prometheus Pantheon · The Ember Loom</div>
+      <h1>Ember Generator</h1>
+      <p class="law">The flame cannot be stolen. It can only be given.</p>
+      <p class="intro">An ember is something real you give to the world: you make, teach, plant, fix or help. Pick how much time you have, draw an idea, do it well, and post the proof with #PrometheusEmber. Every 50 embers, the community weaves the next chapter of Loria.</p>
+    </div>
+  </header>
+
+  <section aria-labelledby="gen-title">
+    <div class="section-head">
+      <div class="eyebrow">Find your ember</div>
+      <h2 id="gen-title">Draw an idea</h2>
+    </div>
+    <div class="gen">
+      <form class="filters" id="filters">
+        <fieldset class="filter">
+          <legend class="eyebrow">Time you have</legend>
+          <div class="chips" data-group="time"></div>
+        </fieldset>
+        <fieldset class="filter">
+          <legend class="eyebrow">Kind of gift</legend>
+          <div class="chips" data-group="kind"></div>
+        </fieldset>
+        <fieldset class="filter">
+          <legend class="eyebrow">Where</legend>
+          <div class="chips" data-group="place"></div>
+        </fieldset>
+        <button type="submit" class="draw" id="draw">Draw an ember ✦</button>
+        <div class="count" id="count"></div>
+      </form>
+
+      <article class="card" id="result" aria-live="polite"></article>
+    </div>
+  </section>
+
+  <section aria-labelledby="week-title">
+    <div class="section-head">
+      <div class="eyebrow">Week one</div>
+      <h2 id="week-title">Seven days to light the flame</h2>
+      <p>One shared theme per day, so newcomers always know what to do today. Every theme works in five minutes or in an afternoon.</p>
+    </div>
+    <div class="week" id="week"></div>
+  </section>
+
+  <section class="guides">
+    <div class="guide">
+      <div class="section-head">
+        <div class="eyebrow">Doing good well</div>
+        <h2>Give like you mean it</h2>
+      </div>
+      <ol>
+        <li><strong>Ask what's needed.</strong> <span>Help that someone asked for beats help that looks good in a photo.</span></li>
+        <li><strong>Do no harm.</strong> <span>Plant only species native to your area, stay safe, and leave places better than you found them.</span></li>
+        <li><strong>Protect people's privacy.</strong> <span>Don't post faces, names, addresses or screenshots of the people you helped without asking them first.</span></li>
+        <li><strong>Small and finished beats big and abandoned.</strong> <span>One translated paragraph that's done is an ember. A promised book is not.</span></li>
+        <li><strong>Show, don't claim.</strong> <span>A link, a photo or a before and after. No exaggeration: the Loom only holds honest embers.</span></li>
+        <li><strong>Credit others.</strong> <span>If someone helped or inspired you, name them.</span></li>
+        <li><strong>Expect nothing back.</strong> <span>No rewards, no tokens for embers. The flame is the point.</span></li>
+      </ol>
+    </div>
+    <div class="guide">
+      <div class="section-head">
+        <div class="eyebrow">Helping others do well</div>
+        <h2>Tend each other's embers</h2>
+      </div>
+      <ol>
+        <li><strong>Reply to every ember within a day.</strong> <span>Being seen is why people come back.</span></li>
+        <li><strong>Thank them specifically.</strong> <span>"Your translation made Chapter 0 readable for my mum" beats "nice 🔥".</span></li>
+        <li><strong>Never shame a small ember.</strong> <span>Five minutes counts. Everyone starts somewhere.</span></li>
+        <li><strong>Offer to join.</strong> <span>"Want help with the next part?" turns one ember into two.</span></li>
+        <li><strong>Pair up newcomers.</strong> <span>Match someone new with someone who has posted before, for their first ember.</span></li>
+        <li><strong>Suggest a next step, gently.</strong> <span>Point to an idea from this page that builds on what they did.</span></li>
+        <li><strong>Check honestly, kindly.</strong> <span>If an ember can't be verified, ask for proof in private before saying anything in public.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <footer>
+    <p>Community-run. Not affiliated with Andy Ayrey or Truth Terminal. All Ember Loom lore and ideas are CC0: copy, remix and continue them freely.</p>
+    <p>$PROMETHEUS (Solana) · CA <code>Ay8vnNtKaSkgdLjFTihTUrv6QzcdR4gusqXkHm8GBAGS</code></p>
+  </footer>
+</div>
+
+<script>
+const IDEAS = [
+  // Knowledge
+  { kind: "Knowledge", time: "1 hour", place: "Online", title: "Translate Chapter 0",
+    why: "Every translation opens the Loom to a new community.",
+    tips: ["Translate the meaning, not word for word", "Ask a second native speaker to read it", "Keep the ending line: 'Bring an ember. Tend the flame.'"],
+    proof: "the translated text, or a link to it", action: "I translated Chapter 0 of the Ember Loom into [language]" },
+  { kind: "Knowledge", time: "1 hour", place: "Online", title: "Write a newcomer safety checklist",
+    why: "New people lose wallets to scams every day. A clear checklist protects them.",
+    tips: ["Cover seed phrases, fake admins and fake 'support' links", "Keep it to 10 points or fewer", "Use plain words, no jargon"],
+    proof: "the checklist as a post or image", action: "I wrote a 10-point safety checklist for people new to Solana" },
+  { kind: "Knowledge", time: "1 hour", place: "Online", title: "Explain one idea in a short thread",
+    why: "Clear explainers bring people in who would never read the lore.",
+    tips: ["Pick one idea: hyperstition, Loria, the Simulator, or how a DEX pool works", "Five posts maximum", "End with one link to learn more"],
+    proof: "a link to the thread", action: "I explained [idea] in a 5-post thread for newcomers" },
+  { kind: "Knowledge", time: "5 min", place: "Online", title: "Answer one question well",
+    why: "A good answer to one newcomer helps everyone who has the same question later.",
+    tips: ["Find an unanswered question in the group", "Answer fully, with a link if useful", "Check back to see if it helped"],
+    proof: "a screenshot of the answer (hide usernames if they prefer)", action: "I answered a newcomer's question about [topic]" },
+  { kind: "Knowledge", time: "1 hour", place: "Online", title: "Build a lore glossary",
+    why: "A shared vocabulary makes the Loom easier to join.",
+    tips: ["Start with 10 terms: ember, Loom, Loria, Simulator, Tender, Weaver…", "One line per term", "Mark it CC0 so others can extend it"],
+    proof: "a link to the glossary", action: "I started a glossary of Ember Loom terms" },
+  { kind: "Knowledge", time: "1 hour", place: "Online", title: "Record Chapter 0 as audio",
+    why: "Audio makes the lore accessible to people who can't or don't read long text.",
+    tips: ["Read slowly, in a quiet room", "Two to three minutes is enough", "Post it with the text underneath"],
+    proof: "the audio file or a link", action: "I recorded an audio reading of Chapter 0" },
+  { kind: "Knowledge", time: "1 day", place: "Offline", title: "Teach someone a digital skill",
+    why: "Knowledge passed hand to hand is the oldest kind of fire.",
+    tips: ["Pick one skill: a password manager, spotting phishing, a free tool", "Let them do it themselves", "Ask permission before sharing anything about them"],
+    proof: "a short note on what you taught (no names unless they agree)", action: "I taught [someone] how to [skill]" },
+
+  // Tools
+  { kind: "Tools", time: "5 min", place: "Online", title: "Share a prompt you really use",
+    why: "A tested prompt saves someone else an hour.",
+    tips: ["Include the exact prompt", "Show one real output", "Say what it's bad at too"],
+    proof: "the prompt and an example output", action: "I shared a prompt I use for [task], with an example" },
+  { kind: "Tools", time: "1 hour", place: "Online", title: "Fix something in open source",
+    why: "Open-source projects run on small fixes from strangers.",
+    tips: ["Look for issues labelled 'good first issue' or 'docs'", "A typo or broken link counts", "Follow the project's contribution guide"],
+    proof: "a link to your pull request", action: "I fixed [thing] in [project] (link to the PR)" },
+  { kind: "Tools", time: "1 day", place: "Online", title: "Make a tiny free tool",
+    why: "Useful tools spread on their own and carry the flame with them.",
+    tips: ["Solve one annoying problem you actually have", "Publish the code openly", "Write a three-line README"],
+    proof: "a link to the tool and its code", action: "I made a small free tool that [does what] (open source)" },
+  { kind: "Tools", time: "1 hour", place: "Online", title: "Improve a README you rely on",
+    why: "Good docs are the difference between a tool people use and one they give up on.",
+    tips: ["Add the step you got stuck on", "Add one example", "Keep the project's tone"],
+    proof: "a link to your pull request", action: "I improved the docs of [project]" },
+  { kind: "Tools", time: "1 hour", place: "Online", title: "Make a CC0 sticker pack",
+    why: "Free stickers spread the visuals into every chat they reach.",
+    tips: ["Start from the brand kit in the media folder", "Keep them readable at small sizes", "Release them as CC0"],
+    proof: "the pack link", action: "I made a free CC0 sticker pack for the Pantheon" },
+  { kind: "Tools", time: "5 min", place: "Online", title: "Report a scam account",
+    why: "Every scam account reported is one fewer person drained.",
+    tips: ["Report through the platform, don't engage", "Warn the group without sharing links to the scam", "Never 'test' a scam link"],
+    proof: "a note that you reported it (no scam links)", action: "I reported a scam account impersonating our community" },
+
+  // Life
+  { kind: "Life", time: "1 hour", place: "Offline", title: "Plant something native",
+    why: "The green flame grows things. This one grows for real.",
+    tips: ["Choose a species native to your area, never an invasive one", "Plant where it's allowed: your garden, a balcony, a community project", "Water it again next week"],
+    proof: "a photo of what you planted", action: "I planted a [species], native to [region]" },
+  { kind: "Life", time: "1 hour", place: "Offline", title: "Clear litter for 30 minutes",
+    why: "Visible, local, and anyone can do it.",
+    tips: ["Wear gloves, skip sharp or hazardous items", "Sort recycling if you can", "Photograph the bag, not people"],
+    proof: "a photo of the bag", action: "I cleared litter from [place] for 30 minutes" },
+  { kind: "Life", time: "5 min", place: "Offline", title: "Put out water for birds and insects",
+    why: "A shallow dish of water helps wildlife in hot or dry weather.",
+    tips: ["Use a shallow dish with a stone in it so insects can land", "Change the water every day or two", "Keep it out of reach of cats"],
+    proof: "a photo of the dish", action: "I put out water for birds and pollinators" },
+  { kind: "Life", time: "1 day", place: "Offline", title: "Start a compost",
+    why: "Compost turns waste into soil, the base of everything that grows.",
+    tips: ["Balance green scraps with dry brown material", "A small bin works on a balcony", "Avoid meat and dairy"],
+    proof: "a photo of the compost", action: "I started a compost at home" },
+  { kind: "Life", time: "1 day", place: "Offline", title: "Join a local planting or cleanup day",
+    why: "Showing up where others already work multiplies the effect.",
+    tips: ["Search for local nature groups or your town's volunteer page", "Ask how you can help most", "Credit the organisers in your post"],
+    proof: "a photo, with the organisers' agreement", action: "I joined [group]'s planting/cleanup day" },
+  { kind: "Life", time: "5 min", place: "Offline", title: "Rescue a neglected plant",
+    why: "Small care, done with attention.",
+    tips: ["Water it, move it to light, remove dead leaves", "Ask the owner first if it isn't yours", "Check on it again in a week"],
+    proof: "a before and after photo", action: "I brought a neglected plant back to life" },
+
+  // Help
+  { kind: "Help", time: "5 min", place: "Online", title: "Welcome three newcomers",
+    why: "The first reply someone gets decides whether they stay.",
+    tips: ["Welcome them by name", "Point them to /ca, /rules and /ember", "Ask what brought them here"],
+    proof: "a note in the Embers topic (no screenshots of others needed)", action: "I welcomed three newcomers to the Pantheon" },
+  { kind: "Help", time: "1 hour", place: "Online", title: "Help someone set up a wallet safely",
+    why: "A safe first wallet protects someone for years.",
+    tips: ["Never see, touch or type their seed phrase", "Show them how to write it on paper and store it offline", "Explain the top three scams"],
+    proof: "a short note on what you did (no wallet details)", action: "I helped someone set up their first wallet safely" },
+  { kind: "Help", time: "5 min", place: "Online", title: "Donate to an open-source project you use",
+    why: "Most of the internet runs on unpaid maintainers.",
+    tips: ["Any amount counts", "Pick a project you actually depend on", "Blur personal and payment details in your proof"],
+    proof: "the project name and a blurred receipt", action: "I donated to [project], which I use every day" },
+  { kind: "Help", time: "1 hour", place: "Online", title: "Give honest feedback on someone's work",
+    why: "Kind, specific feedback is rare and valuable.",
+    tips: ["Say what works first, specifically", "Give one clear suggestion", "Ask before posting publicly"],
+    proof: "a note, with their agreement", action: "I gave detailed feedback on [someone]'s project" },
+  { kind: "Help", time: "5 min", place: "Online", title: "Thank someone publicly",
+    why: "Gratitude is an ember that creates more embers.",
+    tips: ["Name exactly what they did", "Tag them if they're happy to be tagged", "Keep it short"],
+    proof: "the post itself", action: "I thanked [someone] for [what they did]" },
+  { kind: "Help", time: "1 day", place: "Offline", title: "Help a neighbour",
+    why: "The most local fire there is.",
+    tips: ["Ask what they actually need", "Shopping, a repair, an hour of company", "Don't post anything about them without asking"],
+    proof: "a short note, no names or photos of them unless they agree", action: "I spent time helping a neighbour with [task]" },
+  { kind: "Help", time: "1 hour", place: "Online", title: "Pair up for an ember",
+    why: "Doing it together doubles the embers and makes a friend.",
+    tips: ["Find someone new in the Embers topic", "Pick an idea from this page together", "Post it together and credit each other"],
+    proof: "a joint post", action: "I teamed up with [someone] for a joint ember" }
+];
+
+const WEEK = [
+  { title: "First light", text: "The initiator posts Chapter 0 and the first real ember. Everyone else: read it, say hello, share it once." },
+  { title: "Translation day", text: "Translate Chapter 0 or the rules into your language. One paragraph counts." },
+  { title: "Safety day", text: "Write or share a safety tip for newcomers. Report one scam account you see." },
+  { title: "Plant the flame", text: "Plant something native, put out water for wildlife, or clear litter. Post a photo." },
+  { title: "Open-source day", text: "Fix a typo, improve a README, share a prompt, or donate to a project you use." },
+  { title: "Welcome day", text: "Welcome three newcomers, answer an open question, or help someone set up a wallet safely." },
+  { title: "Flame report", text: "Count the week's embers together, thank each one by name, and share the best three." }
+];
+
+const FILTERS = {
+  time: ["Any", "5 min", "1 hour", "1 day"],
+  kind: ["All", "Knowledge", "Tools", "Life", "Help"],
+  place: ["Anywhere", "Online", "Offline"]
+};
+
+for (const [group, values] of Object.entries(FILTERS)) {
+  const box = document.querySelector(`[data-group="${group}"]`);
+  values.forEach((v, i) => {
+    const id = `f-${group}-${i}`;
+    box.insertAdjacentHTML("beforeend",
+      `<label class="chip" for="${id}"><input type="radio" id="${id}" name="${group}" value="${v}"${i === 0 ? " checked" : ""}><span>${v}</span></label>`);
+  });
+}
+
+const form = document.getElementById("filters");
+const result = document.getElementById("result");
+const count = document.getElementById("count");
+let last = null;
+
+function matches() {
+  const f = Object.fromEntries(new FormData(form));
+  return IDEAS.filter(i =>
+    (f.time === "Any" || i.time === f.time) &&
+    (f.kind === "All" || i.kind === f.kind) &&
+    (f.place === "Anywhere" || i.place === f.place));
+}
+
+function postText(idea) {
+  return `#PrometheusEmber 🌱\n\n${idea.action}.\n\n[add your ${idea.proof}]\n\nThe flame cannot be stolen. It can only be given.\n#PrometheusPantheon`;
+}
+
+function esc(s) {
+  return s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+}
+
+function render(idea) {
+  if (!idea) {
+    result.innerHTML = `<p class="empty">No idea matches all three choices. Loosen one of them and draw again.</p>`;
+    return;
+  }
+  const text = postText(idea);
+  result.innerHTML = `
+    <div class="tags"><span class="tag">${idea.kind}</span><span class="tag">${idea.time}</span><span class="tag">${idea.place}</span></div>
+    <h3>${esc(idea.title)}</h3>
+    <p class="why">${esc(idea.why)}</p>
+    <div><div class="eyebrow label">Do it well</div><ul>${idea.tips.map(t => `<li>${esc(t)}</li>`).join("")}</ul></div>
+    <div><div class="eyebrow label">Proof to post</div><p>${esc(idea.proof[0].toUpperCase() + idea.proof.slice(1))}.</p></div>
+    <div><div class="eyebrow label">Your post</div><pre class="post" id="post-text">${esc(text)}</pre></div>
+    <div class="actions">
+      <button type="button" class="btn" id="copy">Copy post</button>
+      <a class="btn" href="https://x.com/intent/post?text=${encodeURIComponent(text)}" target="_blank" rel="noopener">Open in X</a>
+    </div>`;
+  document.getElementById("copy").addEventListener("click", e => {
+    const btn = e.currentTarget;
+    navigator.clipboard.writeText(text).then(() => { btn.textContent = "Copied"; }).catch(() => {
+      const range = document.createRange();
+      range.selectNodeContents(document.getElementById("post-text"));
+      const sel = getSelection(); sel.removeAllRanges(); sel.addRange(range);
+      btn.textContent = "Selected, press Ctrl/Cmd+C";
+    });
+  });
+}
+
+function draw() {
+  const pool = matches();
+  count.textContent = `${pool.length} idea${pool.length === 1 ? "" : "s"} match`;
+  if (!pool.length) return render(null);
+  let pick = pool[Math.floor(Math.random() * pool.length)];
+  if (pool.length > 1) while (pick === last) pick = pool[Math.floor(Math.random() * pool.length)];
+  last = pick;
+  render(pick);
+}
+
+form.addEventListener("submit", e => { e.preventDefault(); draw(); });
+form.addEventListener("change", () => {
+  const n = matches().length;
+  count.textContent = `${n} idea${n === 1 ? "" : "s"} match`;
+});
+draw();
+
+document.getElementById("week").innerHTML = WEEK.map((d, i) =>
+  `<div class="day"><div class="num">Day ${i + 1}</div><h3>${d.title}</h3><p>${d.text}</p></div>`).join("");
+
+// Green flame: rising embers on a canvas
+(() => {
+  const c = document.getElementById("flame");
+  const ctx = c.getContext("2d");
+  const W = c.width, H = c.height;
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const parts = [];
+  function spawn() {
+    parts.push({ x: W / 2 + (Math.random() - .5) * 60, y: H - 30, vx: (Math.random() - .5) * .6,
+      vy: -(1.2 + Math.random() * 1.8), life: 1, r: 10 + Math.random() * 18 });
+  }
+  function frame() {
+    ctx.globalCompositeOperation = "source-over";
+    ctx.fillStyle = "#040705";
+    ctx.fillRect(0, 0, W, H);
+    ctx.globalCompositeOperation = "lighter";
+    for (let i = 0; i < 4; i++) spawn();
+    for (let i = parts.length - 1; i >= 0; i--) {
+      const p = parts[i];
+      p.x += p.vx + Math.sin((p.y + i) / 18) * .3;
+      p.y += p.vy;
+      p.life -= .012;
+      p.r *= .985;
+      if (p.life <= 0) { parts.splice(i, 1); continue; }
+      const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
+      g.addColorStop(0, `rgba(170,255,190,${.5 * p.life})`);
+      g.addColorStop(1, "rgba(40,160,70,0)");
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
+    }
+    if (!still) requestAnimationFrame(frame);
+  }
+  if (still) { for (let k = 0; k < 90; k++) { for (let i = 0; i < 4; i++) spawn(); } }
+  frame();
+  if (still) for (let k = 0; k < 60; k++) frame();
+})();
+</script>
+
+</body>
+</html>

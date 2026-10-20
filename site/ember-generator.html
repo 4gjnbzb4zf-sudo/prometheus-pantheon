@@ -192,7 +192,7 @@ footer code { font-family: var(--font-mono); font-size: 12px; color: var(--fg); 
       <div class="eyebrow">Prometheus Pantheon · The Ember Loom</div>
       <h1>Ember Generator</h1>
       <p class="law">The flame cannot be stolen. It can only be given.</p>
-      <p class="intro">An ember is something real you give to the world: you make, teach, plant, fix or help. Pick how much time you have, draw an idea, do it well, and post the proof with #PrometheusEmber. Every 50 embers, the community weaves the next chapter of Loria.</p>
+      <p class="intro">An ember is something real you give to the world: you make, teach, plant, fix or help. The brightest embers use both hands: AI helps you plan or build, and you do the real deed and post the action shot. Pick how much time you have, draw an idea, do it well, and post the proof with #PrometheusEmber. Every 50 embers, the community weaves the next chapter of Loria.</p>
     </div>
   </header>
 
@@ -214,6 +214,10 @@ footer code { font-family: var(--font-mono); font-size: 12px; color: var(--fg); 
         <fieldset class="filter">
           <legend class="eyebrow">Where</legend>
           <div class="chips" data-group="place"></div>
+        </fieldset>
+        <fieldset class="filter">
+          <legend class="eyebrow">AI help</legend>
+          <div class="chips" data-group="help"></div>
         </fieldset>
         <button type="submit" class="draw" id="draw">Draw an ember ✦</button>
         <div class="count" id="count"></div>
@@ -243,7 +247,8 @@ footer code { font-family: var(--font-mono); font-size: 12px; color: var(--fg); 
         <li><strong>Do no harm.</strong> <span>Plant only species native to your area, stay safe, and leave places better than you found them.</span></li>
         <li><strong>Protect people's privacy.</strong> <span>Don't post faces, names, addresses or screenshots of the people you helped without asking them first.</span></li>
         <li><strong>Small and finished beats big and abandoned.</strong> <span>One translated paragraph that's done is an ember. A promised book is not.</span></li>
-        <li><strong>Show, don't claim.</strong> <span>A link, a photo or a before and after. No exaggeration: the Loom only holds honest embers.</span></li>
+        <li><strong>Show, don't claim.</strong> <span>A link, an action shot or a before and after. No exaggeration: the Loom only holds honest embers.</span></li>
+        <li><strong>Be open about AI.</strong> <span>Say what the AI did and what you did. Check its facts, and never give it other people's personal details.</span></li>
         <li><strong>Credit others.</strong> <span>If someone helped or inspired you, name them.</span></li>
         <li><strong>Expect nothing back.</strong> <span>No rewards, no tokens for embers. The flame is the point.</span></li>
       </ol>
@@ -273,6 +278,44 @@ footer code { font-family: var(--font-mono); font-size: 12px; color: var(--fg); 
 
 <script>
 const IDEAS = [
+  // Both hands: AI helps, you act in the real world
+  { kind: "Life", time: "1 day", place: "Offline", ai: true, title: "Plan a cleanup with AI, then do it",
+    why: "AI does the planning in minutes, so your energy goes into the real work.",
+    tips: ["Ask AI for a route, a safety checklist and a short invite text", "Check local rules before you go", "Take a before and after action shot"],
+    proof: "your before and after action shot", action: "I used AI to plan a cleanup of [place], then did it with [number] people" },
+  { kind: "Life", time: "1 hour", place: "Offline", ai: true, title: "Find a native plant with AI, then plant it",
+    why: "AI narrows the choice, your hands put it in the ground.",
+    tips: ["Ask AI which plants are native to your area and why", "AI can be wrong: confirm with a local nursery or an official native-species list", "Photograph yourself planting it"],
+    proof: "an action shot of the planting", action: "I asked AI which plants are native to [region], checked it locally, and planted a [species]" },
+  { kind: "Help", time: "1 day", place: "Online", ai: true, title: "Write a funding request for a local cause",
+    why: "Small associations rarely have time to write applications. AI plus you can change that.",
+    tips: ["Ask the association what they need first", "Draft with AI, then rewrite it in their real voice with real facts", "Let them review and send it themselves"],
+    proof: "a note from the association, with their agreement", action: "I helped [association] draft a funding request with AI" },
+  { kind: "Help", time: "1 hour", place: "Offline", ai: true, title: "Help a local shop or association online",
+    why: "A clear menu, flyer or page brings real people through a real door.",
+    tips: ["Ask what they need: a menu, a flyer, opening hours, a post", "Draft with AI, then check every fact with them", "Hand it over; it's theirs"],
+    proof: "a photo of the result in use, with their agreement", action: "I used AI to help [place] with their [flyer/menu/page]" },
+  { kind: "Help", time: "1 hour", place: "Offline", ai: true, title: "Explain a confusing letter to someone",
+    why: "Official letters and forms lock people out. A clear explanation opens the door.",
+    tips: ["Remove names and personal details before giving anything to AI", "Ask AI for a plain-language summary, then read the original yourself", "For legal or medical matters, point them to a professional"],
+    proof: "a short note on what you did (no personal details)", action: "I used AI to help someone understand a confusing [form/letter]" },
+  { kind: "Knowledge", time: "1 hour", place: "Online", ai: true, title: "Translate the guide with AI, check it by hand",
+    why: "AI makes translation fast. A human check makes it right.",
+    tips: ["Translate Chapter 0 or the rules with AI", "Have a native speaker correct it", "Say which parts AI did and which you fixed"],
+    proof: "the corrected translation", action: "I translated [text] into [language] with AI and had it checked by a native speaker" },
+  { kind: "Knowledge", time: "1 hour", place: "Online", ai: true, title: "Add alt text to community images",
+    why: "Alt text lets blind and low-vision people see the lore too.",
+    tips: ["Draft descriptions with AI", "Correct every one yourself, AI misses details", "Keep each to one or two sentences"],
+    proof: "the images with their alt text", action: "I wrote alt text for [number] community images, drafted with AI and corrected by hand" },
+  { kind: "Tools", time: "1 day", place: "Online", ai: true, title: "Build a small tool with AI coding help",
+    why: "With AI, anyone can ship a useful tool in a day.",
+    tips: ["Pick a real problem someone in your life has", "Test it with that person", "Publish the code and say AI helped write it"],
+    proof: "a link to the tool and its code", action: "I built [tool] with AI coding help to solve [problem] (open source)" },
+  { kind: "Knowledge", time: "1 day", place: "Offline", ai: true, title: "Learn a skill with AI, then teach it",
+    why: "Learning fast is good. Passing it on is the ember.",
+    tips: ["Ask AI for a one-day learning plan on a useful skill", "Practise it for real", "Teach it to one person in person"],
+    proof: "an action shot of the teaching moment, with their agreement", action: "I learned [skill] with an AI study plan and taught it to [someone]" },
+
   // Knowledge
   { kind: "Knowledge", time: "1 hour", place: "Online", title: "Translate Chapter 0",
     why: "Every translation opens the Loom to a new community.",
@@ -399,7 +442,8 @@ const WEEK = [
 const FILTERS = {
   time: ["Any", "5 min", "1 hour", "1 day"],
   kind: ["All", "Knowledge", "Tools", "Life", "Help"],
-  place: ["Anywhere", "Online", "Offline"]
+  place: ["Anywhere", "Online", "Offline"],
+  help: ["Any", "With AI", "By hand"]
 };
 
 for (const [group, values] of Object.entries(FILTERS)) {
@@ -421,11 +465,13 @@ function matches() {
   return IDEAS.filter(i =>
     (f.time === "Any" || i.time === f.time) &&
     (f.kind === "All" || i.kind === f.kind) &&
-    (f.place === "Anywhere" || i.place === f.place));
+    (f.place === "Anywhere" || i.place === f.place) &&
+    (f.help === "Any" || (f.help === "With AI") === Boolean(i.ai)));
 }
 
 function postText(idea) {
-  return `#PrometheusEmber 🌱\n\n${idea.action}.\n\n[add your ${idea.proof}]\n\nThe flame cannot be stolen. It can only be given.\n#PrometheusPantheon`;
+  const hands = idea.ai ? `\n🤖 AI helped with: [what the AI did]\n🙌 I did: [what you did]\n` : "";
+  return `#PrometheusEmber 🌱\n\n${idea.action}.\n${hands}\n📸 [add your ${idea.proof}]\n\nThe flame cannot be stolen. It can only be given.\n#PrometheusPantheon`;
 }
 
 function esc(s) {
@@ -439,7 +485,7 @@ function render(idea) {
   }
   const text = postText(idea);
   result.innerHTML = `
-    <div class="tags"><span class="tag">${idea.kind}</span><span class="tag">${idea.time}</span><span class="tag">${idea.place}</span></div>
+    <div class="tags"><span class="tag">${idea.kind}</span><span class="tag">${idea.time}</span><span class="tag">${idea.place}</span>${idea.ai ? `<span class="tag">Both hands · AI + you</span>` : ""}</div>
     <h3>${esc(idea.title)}</h3>
     <p class="why">${esc(idea.why)}</p>
     <div><div class="eyebrow label">Do it well</div><ul>${idea.tips.map(t => `<li>${esc(t)}</li>`).join("")}</ul></div>

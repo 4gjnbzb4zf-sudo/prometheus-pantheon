@@ -10,6 +10,8 @@ This folder was started by one person, but **no one is in charge of it**.
 2. Post the proof (a link, a photo, a short note) with **#PrometheusEmber** on X or `/ember` in the Telegram group.
 3. It is an ember if it is **honest and verifiable**. That's the only test.
 
+**The brightest embers use both hands:** AI helps you plan, write, translate or build, and you do the real thing in the real world. Post the **action shot** (a photo of the real deed) and say honestly what the AI did and what you did.
+
 ## How the Loom is woven
 - Every **50 embers**, anyone can propose the next chapter, drawing on the embers since the last one.
 - The community picks one with a simple poll. The proposer of the previous chapter can't propose the next one, so the pen keeps moving.

@@ -46,7 +46,7 @@ There is **no treasury and no community wallet**. Nobody collects funds for the 
 - The initiator has no veto. After Chapter 1, the initiator is one member among others.
 
 ## How to contribute
-- **Ideas for the generator, fixes, translations:** open an issue or a pull request on [GitHub](https://github.com/4gjnbzb4zf-sudo/prometheus-pantheon).
+- **Ideas for the generator, fixes, translations:** open an issue or a pull request on [GitHub](https://github.com/4gjnbzb4zf-sudo/prometheus-pantheon). Nothing goes live without review: every change is checked automatically and approved before it reaches the site (see [CONTRIBUTING](https://github.com/4gjnbzb4zf-sudo/prometheus-pantheon/blob/main/CONTRIBUTING.md)).
 - **Lore:** propose chapters, fragments or retellings. Everything is CC0.
 - **Community:** join the [Telegram portal](https://t.me/PrometheusGreenFlame), welcome newcomers, become a Tender.
 

@@ -1,0 +1,40 @@
+name: Check site
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Rebuild pages from their sources
+        run: python3 site/build.py
+      - name: Built pages are up to date
+        run: |
+          if ! git diff --exit-code -- '*.html'; then
+            echo "::error::The built pages differ from their sources. Run 'python3 site/build.py' and commit the result."
+            exit 1
+          fi
+      - name: Page scripts parse
+        run: |
+          python3 - <<'PY'
+          import pathlib, re, subprocess, sys, tempfile
+          failed = False
+          for page in sorted(pathlib.Path(".").glob("*.html")):
+              for i, js in enumerate(re.findall(r"<script>(.*?)</script>", page.read_text(), re.S)):
+                  with tempfile.NamedTemporaryFile("w", suffix=".js", delete=False) as f:
+                      f.write(js)
+                  if subprocess.run(["node", "--check", f.name]).returncode:
+                      print(f"::error file={page}::script {i} does not parse")
+                      failed = True
+          sys.exit(failed)
+          PY

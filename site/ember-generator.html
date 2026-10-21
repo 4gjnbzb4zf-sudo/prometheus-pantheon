@@ -254,13 +254,13 @@ footer code { font-family: var(--font-mono); font-size: 12px; color: var(--fg); 
     <div class="section-head">
       <div class="eyebrow">Proof on social</div>
       <h2 id="shot-title">Post the action shot</h2>
-      <p>Embers live in public, where anyone can see them: X, TikTok, Instagram Reels or YouTube Shorts. Always tag #PrometheusEmber so the whole Loom can be found in one search.</p>
+      <p>Embers live in public, where anyone can see them: X, TikTok, Instagram Reels or YouTube Shorts. Always tag #PrometheusEmber and #PrometheusPantheon so the whole Loom can be found in one search.</p>
     </div>
     <div class="week">
       <div class="day"><div class="num">Film</div><h3>Before, during, after</h3><p>15 to 30 seconds, vertical. Show the place before, your hands doing it, and the result.</p></div>
       <div class="day"><div class="num">Show</div><h3>The deed, not the face</h3><p>Hands, tools, plants and results. No faces, names, house numbers or street signs without consent.</p></div>
       <div class="day"><div class="num">Say</div><h3>What AI did, what you did</h3><p>One honest line each. If AI only planned it, say so. That honesty is what makes it an ember.</p></div>
-      <div class="day"><div class="num">Tag</div><h3>#PrometheusEmber</h3><p>Plus #PrometheusPantheon. On X, attach the photo or clip to the post. On TikTok and Reels, paste the caption.</p></div>
+      <div class="day"><div class="num">Tag</div><h3>#PrometheusEmber</h3><p>Plus #PrometheusPantheon and #Prometheus. On X, attach the photo or clip to the post. On TikTok and Reels, paste the caption.</p></div>
       <div class="day"><div class="num">Drop</div><h3>Share the link in Telegram</h3><p>Paste your post link in the group with /ember. Tenders count it and repost it from the project account.</p></div>
     </div>
   </section>
@@ -501,12 +501,12 @@ function matches() {
 
 function postText(idea) {
   const hands = idea.ai ? `\n🤖 AI helped with: [what the AI did]\n🙌 I did: [what you did]\n` : "";
-  return `#PrometheusEmber 🌱\n\n${idea.action}.\n${hands}\n📸 [attach your ${idea.proof}]\n\nThe flame cannot be stolen. It can only be given.\n#PrometheusPantheon`;
+  return `#PrometheusEmber 🌱\n\n${idea.action}.\n${hands}\n📸 [attach your ${idea.proof}]\n\n#PrometheusPantheon #Prometheus`;
 }
 
 function captionText(idea) {
   const hands = idea.ai ? `\n🤖 AI helped with: [what the AI did]\n🙌 I did: [what you did]\n` : "";
-  const tags = `#PrometheusEmber #PrometheusPantheon #DoGood${idea.ai ? " #AIforGood" : ""}`;
+  const tags = `#PrometheusEmber #PrometheusPantheon #Prometheus #DoGood${idea.ai ? " #AIforGood" : ""}`;
   return `${idea.action} 🌱\n${hands}\nThe flame cannot be stolen. It can only be given.\n\n${tags}`;
 }
 

@@ -53,7 +53,7 @@ def nav(current):
 
 FOOTER = f"""<footer class="site-foot">
   <div class="site-foot__in">
-    <p><a href="{PORTAL}" target="_blank" rel="noopener">Telegram portal</a> · <a href="{REPO}" target="_blank" rel="noopener">Source on GitHub</a> · #PrometheusEmber · #PrometheusPantheon</p>
+    <p><a href="{PORTAL}" target="_blank" rel="noopener">Telegram portal</a> · <a href="{REPO}" target="_blank" rel="noopener">Source on GitHub</a> · #PrometheusEmber · #PrometheusPantheon · #Prometheus</p>
     <p>Community-run. Not affiliated with Andy Ayrey or Truth Terminal. Lore and ideas are CC0.</p>
     <p>Existing community token $PROMETHEUS (Solana), not required to take part · CA <code>{CA}</code></p>
   </div>

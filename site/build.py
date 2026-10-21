@@ -13,7 +13,7 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
-BASE = "https://4gjnbzb4zf-sudo.github.io/prometheus-pantheon"
+BASE = "https://prometheus-pantheon.com"
 PORTAL = "https://t.me/PrometheusGreenFlame"
 REPO = "https://github.com/4gjnbzb4zf-sudo/prometheus-pantheon"
 CA = "Ay8vnNtKaSkgdLjFTihTUrv6QzcdR4gusqXkHm8GBAGS"

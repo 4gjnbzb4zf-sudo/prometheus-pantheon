@@ -4,9 +4,9 @@
 
 A community hyperstition: Prometheus' green flame grows only when people give something real to the world, and the story of Loria only moves forward when they do.
 
-- 🌐 **Website:** https://4gjnbzb4zf-sudo.github.io/prometheus-pantheon/
-- 🔥 **Ember Generator** (find an idea, do it well, post the proof): https://4gjnbzb4zf-sudo.github.io/prometheus-pantheon/generator.html
-- 🕯️ **The Hearth** (give $PROMETHEUS directly to people doing good, no treasury): https://4gjnbzb4zf-sudo.github.io/prometheus-pantheon/hearth.html
+- 🌐 **Website:** https://prometheus-pantheon.com/
+- 🔥 **Ember Generator** (find an idea, do it well, post the proof): https://prometheus-pantheon.com/generator.html
+- 🕯️ **The Hearth** (give $PROMETHEUS directly to people doing good, no treasury): https://prometheus-pantheon.com/hearth.html
 - 🧭 **The Proposal:** [`proposal.md`](proposal.md)
 - 📜 **Lore:** [`lore/`](lore/) — start with [Chapter 0: The First Ember](lore/chapter-0-the-first-ember.md)
 - 🎨 **Brand kit:** [`media/`](media/)

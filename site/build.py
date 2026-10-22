@@ -178,6 +178,7 @@ def build_lore():
 </article>
 <section class="prose">
 {markdown(rules, demote=1)}
+{markdown((ROOT / "lore" / "gowith.md").read_text())}
 <p><a class="btn" href="{REPO}/issues/new?template=chapter.md" target="_blank" rel="noopener">Propose a chapter or fragment</a></p>
 </section>"""
     page("lore.html", "The Ember Loom: Lore",

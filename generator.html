@@ -174,6 +174,9 @@ a { color: var(--flame); }
 .btn:hover { border-color: var(--flame-dim); }
 .count { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
 .empty { color: var(--muted); }
+.gowith { display: grid; gap: 10px; border-top: 1px solid var(--line); padding-top: 14px; }
+.gowith summary { cursor: pointer; }
+.gowith code { font-family: var(--font-mono); font-size: 12px; color: var(--flame); }
 
 /* Week */
 .week { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
@@ -331,151 +334,151 @@ footer code { font-family: var(--font-mono); font-size: 12px; color: var(--fg); 
 <script>
 const IDEAS = [
   // Both hands: AI helps, you act in the real world
-  { kind: "Life", time: "1 day", place: "Offline", ai: true, title: "Plan a cleanup with AI, then do it",
+  { kind: "Life", time: "1 day", place: "Offline", ai: true, title: "Plan a cleanup with AI, then do it", gw: "Clean-settle: mi-lead, AI-through, litter-from, neighbourhood-for.",
     why: "AI does the planning in minutes, so your energy goes into the real work.",
     tips: ["Ask AI for a route, a safety checklist and a short invite text", "Check local rules before you go", "Take a before and after action shot"],
     proof: "your before and after action shot", action: "I used AI to plan a cleanup of [place], then did it with [number] people" },
-  { kind: "Life", time: "1 hour", place: "Offline", ai: true, title: "Find a native plant with AI, then plant it",
+  { kind: "Life", time: "1 hour", place: "Offline", ai: true, title: "Find a native plant with AI, then plant it", gw: "Plant-settle: mi-lead, AI-through, native-seed-with, land-for.",
     why: "AI narrows the choice, your hands put it in the ground.",
     tips: ["Ask AI which plants are native to your area and why", "AI can be wrong: confirm with a local nursery or an official native-species list", "Photograph yourself planting it"],
     proof: "an action shot of the planting", action: "I asked AI which plants are native to [region], checked it locally, and planted a [species]" },
-  { kind: "Help", time: "1 day", place: "Online", ai: true, title: "Write a funding request for a local cause",
+  { kind: "Help", time: "1 day", place: "Online", ai: true, title: "Write a funding request for a local cause", gw: "Ask-funding-settle: mi-lead, AI-through, association-for.",
     why: "Small associations rarely have time to write applications. AI plus you can change that.",
     tips: ["Ask the association what they need first", "Draft with AI, then rewrite it in their real voice with real facts", "Let them review and send it themselves"],
     proof: "a note from the association, with their agreement", action: "I helped [association] draft a funding request with AI" },
-  { kind: "Help", time: "1 hour", place: "Offline", ai: true, title: "Help a local shop or association online",
+  { kind: "Help", time: "1 hour", place: "Offline", ai: true, title: "Help a local shop or association online", gw: "Make-flyer-settle: mi-lead, AI-through, shop-for.",
     why: "A clear menu, flyer or page brings real people through a real door.",
     tips: ["Ask what they need: a menu, a flyer, opening hours, a post", "Draft with AI, then check every fact with them", "Hand it over; it's theirs"],
     proof: "a photo of the result in use, with their agreement", action: "I used AI to help [place] with their [flyer/menu/page]" },
-  { kind: "Help", time: "1 hour", place: "Offline", ai: true, title: "Explain a confusing letter to someone",
+  { kind: "Help", time: "1 hour", place: "Offline", ai: true, title: "Explain a confusing letter to someone", gw: "Understand-bud: mi-lead, AI-through, letter-across, neighbour-for.",
     why: "Official letters and forms lock people out. A clear explanation opens the door.",
     tips: ["Remove names and personal details before giving anything to AI", "Ask AI for a plain-language summary, then read the original yourself", "For legal or medical matters, point them to a professional"],
     proof: "a short note on what you did (no personal details)", action: "I used AI to help someone understand a confusing [form/letter]" },
-  { kind: "Knowledge", time: "1 hour", place: "Online", ai: true, title: "Translate the guide with AI, check it by hand",
+  { kind: "Knowledge", time: "1 hour", place: "Online", ai: true, title: "Translate the guide with AI, check it by hand", gw: "Translate-settle: mi-lead, AI-through, native-speaker-with, readers-for.",
     why: "AI makes translation fast. A human check makes it right.",
     tips: ["Translate Chapter 0 or the rules with AI", "Have a native speaker correct it", "Say which parts AI did and which you fixed"],
     proof: "the corrected translation", action: "I translated [text] into [language] with AI and had it checked by a native speaker" },
-  { kind: "Knowledge", time: "1 hour", place: "Online", ai: true, title: "Add alt text to community images",
+  { kind: "Knowledge", time: "1 hour", place: "Online", ai: true, title: "Add alt text to community images", gw: "Describe-settle: mi-lead, AI-through, images-across, blind-readers-for.",
     why: "Alt text lets blind and low-vision people see the lore too.",
     tips: ["Draft descriptions with AI", "Correct every one yourself, AI misses details", "Keep each to one or two sentences"],
     proof: "the images with their alt text", action: "I wrote alt text for [number] community images, drafted with AI and corrected by hand" },
-  { kind: "Tools", time: "1 day", place: "Online", ai: true, title: "Build a small tool with AI coding help",
+  { kind: "Tools", time: "1 day", place: "Online", ai: true, title: "Build a small tool with AI coding help", gw: "Build-settle: mi-lead, AI-through, tool-toward, others-for.",
     why: "With AI, anyone can ship a useful tool in a day.",
     tips: ["Pick a real problem someone in your life has", "Test it with that person", "Publish the code and say AI helped write it"],
     proof: "a link to the tool and its code", action: "I built [tool] with AI coding help to solve [problem] (open source)" },
-  { kind: "Knowledge", time: "1 day", place: "Offline", ai: true, title: "Learn a skill with AI, then teach it",
+  { kind: "Knowledge", time: "1 day", place: "Offline", ai: true, title: "Learn a skill with AI, then teach it", gw: "Teach-settle: mi-lead, AI-through, skill-with, learner-toward.",
     why: "Learning fast is good. Passing it on is the ember.",
     tips: ["Ask AI for a one-day learning plan on a useful skill", "Practise it for real", "Teach it to one person in person"],
     proof: "an action shot of the teaching moment, with their agreement", action: "I learned [skill] with an AI study plan and taught it to [someone]" },
 
   // Knowledge
-  { kind: "Knowledge", time: "1 hour", place: "Online", title: "Translate Chapter 0",
+  { kind: "Knowledge", time: "1 hour", place: "Online", title: "Translate Chapter 0", gw: "Translate-settle: mi-lead, chapter-from, new-readers-for.",
     why: "Every translation opens the Loom to a new community.",
     tips: ["Translate the meaning, not word for word", "Ask a second native speaker to read it", "Keep the ending line: 'Bring an ember. Tend the flame.'"],
     proof: "the translated text, or a link to it", action: "I translated Chapter 0 of the Ember Loom into [language]" },
-  { kind: "Knowledge", time: "1 hour", place: "Online", title: "Write a newcomer safety checklist",
+  { kind: "Knowledge", time: "1 hour", place: "Online", title: "Write a newcomer safety checklist", gw: "Warn-hold: mi-lead, checklist-through, newcomers-for.",
     why: "New people lose wallets to scams every day. A clear checklist protects them.",
     tips: ["Cover seed phrases, fake admins and fake 'support' links", "Keep it to 10 points or fewer", "Use plain words, no jargon"],
     proof: "the checklist as a post or image", action: "I wrote a 10-point safety checklist for people new to Solana" },
-  { kind: "Knowledge", time: "1 hour", place: "Online", title: "Explain one idea in a short thread",
+  { kind: "Knowledge", time: "1 hour", place: "Online", title: "Explain one idea in a short thread", gw: "Explain-settle: mi-lead, thread-through, newcomers-for.",
     why: "Clear explainers bring people in who would never read the lore.",
     tips: ["Pick one idea: hyperstition, Loria, the Simulator, or how a DEX pool works", "Five posts maximum", "End with one link to learn more"],
     proof: "a link to the thread", action: "I explained [idea] in a 5-post thread for newcomers" },
-  { kind: "Knowledge", time: "5 min", place: "Online", title: "Answer one question well",
+  { kind: "Knowledge", time: "5 min", place: "Online", title: "Answer one question well", gw: "Answer-settle: mi-lead, question-from, newcomer-for.",
     why: "A good answer to one newcomer helps everyone who has the same question later.",
     tips: ["Find an unanswered question in the group", "Answer fully, with a link if useful", "Check back to see if it helped"],
     proof: "a screenshot of the answer (hide usernames if they prefer)", action: "I answered a newcomer's question about [topic]" },
-  { kind: "Knowledge", time: "1 hour", place: "Online", title: "Build a lore glossary",
+  { kind: "Knowledge", time: "1 hour", place: "Online", title: "Build a lore glossary", gw: "Name-settle: mi-lead, words-with, Loom-for.",
     why: "A shared vocabulary makes the Loom easier to join.",
     tips: ["Start with 10 terms: ember, Loom, Loria, Simulator, Tender, Weaver…", "One line per term", "Mark it CC0 so others can extend it"],
     proof: "a link to the glossary", action: "I started a glossary of Ember Loom terms" },
-  { kind: "Knowledge", time: "1 hour", place: "Online", title: "Record Chapter 0 as audio",
+  { kind: "Knowledge", time: "1 hour", place: "Online", title: "Record Chapter 0 as audio", gw: "Read-aloud-settle: mi-lead, voice-through, listeners-for.",
     why: "Audio makes the lore accessible to people who can't or don't read long text.",
     tips: ["Read slowly, in a quiet room", "Two to three minutes is enough", "Post it with the text underneath"],
     proof: "the audio file or a link", action: "I recorded an audio reading of Chapter 0" },
-  { kind: "Knowledge", time: "1 day", place: "Offline", title: "Teach someone a digital skill",
+  { kind: "Knowledge", time: "1 day", place: "Offline", title: "Teach someone a digital skill", gw: "Teach-settle: mi-lead, skill-with, person-toward.",
     why: "Knowledge passed hand to hand is the oldest kind of fire.",
     tips: ["Pick one skill: a password manager, spotting phishing, a free tool", "Let them do it themselves", "Ask permission before sharing anything about them"],
     proof: "a short note on what you taught (no names unless they agree)", action: "I taught [someone] how to [skill]" },
 
   // Tools
-  { kind: "Tools", time: "5 min", place: "Online", title: "Share a prompt you really use",
+  { kind: "Tools", time: "5 min", place: "Online", title: "Share a prompt you really use", gw: "Share-settle: mi-lead, prompt-with, others-for.",
     why: "A tested prompt saves someone else an hour.",
     tips: ["Include the exact prompt", "Show one real output", "Say what it's bad at too"],
     proof: "the prompt and an example output", action: "I shared a prompt I use for [task], with an example" },
-  { kind: "Tools", time: "1 hour", place: "Online", title: "Fix something in open source",
+  { kind: "Tools", time: "1 hour", place: "Online", title: "Fix something in open source", gw: "Fix-settle: mi-lead, project-across, maintainers-for.",
     why: "Open-source projects run on small fixes from strangers.",
     tips: ["Look for issues labelled 'good first issue' or 'docs'", "A typo or broken link counts", "Follow the project's contribution guide"],
     proof: "a link to your pull request", action: "I fixed [thing] in [project] (link to the PR)" },
-  { kind: "Tools", time: "1 day", place: "Online", title: "Make a tiny free tool",
+  { kind: "Tools", time: "1 day", place: "Online", title: "Make a tiny free tool", gw: "Build-settle: mi-lead, tool-toward, others-for.",
     why: "Useful tools spread on their own and carry the flame with them.",
     tips: ["Solve one annoying problem you actually have", "Publish the code openly", "Write a three-line README"],
     proof: "a link to the tool and its code", action: "I made a small free tool that [does what] (open source)" },
-  { kind: "Tools", time: "1 hour", place: "Online", title: "Improve a README you rely on",
+  { kind: "Tools", time: "1 hour", place: "Online", title: "Improve a README you rely on", gw: "Clarify-settle: mi-lead, docs-across, users-for.",
     why: "Good docs are the difference between a tool people use and one they give up on.",
     tips: ["Add the step you got stuck on", "Add one example", "Keep the project's tone"],
     proof: "a link to your pull request", action: "I improved the docs of [project]" },
-  { kind: "Tools", time: "1 hour", place: "Online", title: "Make a CC0 sticker pack",
+  { kind: "Tools", time: "1 hour", place: "Online", title: "Make a CC0 sticker pack", gw: "Draw-settle: mi-lead, stickers-toward, chats-among.",
     why: "Free stickers spread the visuals into every chat they reach.",
     tips: ["Start from the brand kit in the media folder", "Keep them readable at small sizes", "Release them as CC0"],
     proof: "the pack link", action: "I made a free CC0 sticker pack for the Pantheon" },
-  { kind: "Tools", time: "5 min", place: "Online", title: "Report a scam account",
+  { kind: "Tools", time: "5 min", place: "Online", title: "Report a scam account", gw: "Report-settle: mi-lead, scam-account-against, community-for.",
     why: "Every scam account reported is one fewer person drained.",
     tips: ["Report through the platform, don't engage", "Warn the group without sharing links to the scam", "Never 'test' a scam link"],
     proof: "a note that you reported it (no scam links)", action: "I reported a scam account impersonating our community" },
 
   // Life
-  { kind: "Life", time: "1 hour", place: "Offline", title: "Plant something native",
+  { kind: "Life", time: "1 hour", place: "Offline", title: "Plant something native", gw: "Plant-settle: mi-lead, native-seed-with, land-for.",
     why: "The green flame grows things. This one grows for real.",
     tips: ["Choose a species native to your area, never an invasive one", "Plant where it's allowed: your garden, a balcony, a community project", "Water it again next week"],
     proof: "a photo of what you planted", action: "I planted a [species], native to [region]" },
-  { kind: "Life", time: "1 hour", place: "Offline", title: "Clear litter for 30 minutes",
+  { kind: "Life", time: "1 hour", place: "Offline", title: "Clear litter for 30 minutes", gw: "Clean-settle: mi-lead, litter-from, place-for.",
     why: "Visible, local, and anyone can do it.",
     tips: ["Wear gloves, skip sharp or hazardous items", "Sort recycling if you can", "Photograph the bag, not people"],
     proof: "a photo of the bag", action: "I cleared litter from [place] for 30 minutes" },
-  { kind: "Life", time: "5 min", place: "Offline", title: "Put out water for birds and insects",
+  { kind: "Life", time: "5 min", place: "Offline", title: "Put out water for birds and insects", gw: "Water-hold: mi-lead, dish-through, birds-for, insects-for.",
     why: "A shallow dish of water helps wildlife in hot or dry weather.",
     tips: ["Use a shallow dish with a stone in it so insects can land", "Change the water every day or two", "Keep it out of reach of cats"],
     proof: "a photo of the dish", action: "I put out water for birds and pollinators" },
-  { kind: "Life", time: "1 day", place: "Offline", title: "Start a compost",
+  { kind: "Life", time: "1 day", place: "Offline", title: "Start a compost", gw: "Compost-bud: mi-lead, scraps-from, soil-toward.",
     why: "Compost turns waste into soil, the base of everything that grows.",
     tips: ["Balance green scraps with dry brown material", "A small bin works on a balcony", "Avoid meat and dairy"],
     proof: "a photo of the compost", action: "I started a compost at home" },
-  { kind: "Life", time: "1 day", place: "Offline", title: "Join a local planting or cleanup day",
+  { kind: "Life", time: "1 day", place: "Offline", title: "Join a local planting or cleanup day", gw: "Plant-settle: group-lead, mi-with, land-for.",
     why: "Showing up where others already work multiplies the effect.",
     tips: ["Search for local nature groups or your town's volunteer page", "Ask how you can help most", "Credit the organisers in your post"],
     proof: "a photo, with the organisers' agreement", action: "I joined [group]'s planting/cleanup day" },
-  { kind: "Life", time: "5 min", place: "Offline", title: "Rescue a neglected plant",
+  { kind: "Life", time: "5 min", place: "Offline", title: "Rescue a neglected plant", gw: "Revive-go: mi-lead, plant-for.",
     why: "Small care, done with attention.",
     tips: ["Water it, move it to light, remove dead leaves", "Ask the owner first if it isn't yours", "Check on it again in a week"],
     proof: "a before and after photo", action: "I brought a neglected plant back to life" },
 
   // Help
-  { kind: "Help", time: "5 min", place: "Online", title: "Welcome three newcomers",
+  { kind: "Help", time: "5 min", place: "Online", title: "Welcome three newcomers", gw: "Welcome-settle: mi-lead, newcomers-toward, Pantheon-among.",
     why: "The first reply someone gets decides whether they stay.",
     tips: ["Welcome them by name", "Point them to /ca, /rules and /ember", "Ask what brought them here"],
     proof: "a note in the Embers topic (no screenshots of others needed)", action: "I welcomed three newcomers to the Pantheon" },
-  { kind: "Help", time: "1 hour", place: "Online", title: "Help someone set up a wallet safely",
+  { kind: "Help", time: "1 hour", place: "Online", title: "Help someone set up a wallet safely", gw: "Protect-settle: mi-lead, person-for; Seed-see-not-hold: mi-through.",
     why: "A safe first wallet protects someone for years.",
     tips: ["Never see, touch or type their seed phrase", "Show them how to write it on paper and store it offline", "Explain the top three scams"],
     proof: "a short note on what you did (no wallet details)", action: "I helped someone set up their first wallet safely" },
-  { kind: "Help", time: "5 min", place: "Online", title: "Donate to an open-source project you use",
+  { kind: "Help", time: "5 min", place: "Online", title: "Donate to an open-source project you use", gw: "Give-settle: mi-lead, project-toward, maintainers-for.",
     why: "Most of the internet runs on unpaid maintainers.",
     tips: ["Any amount counts", "Pick a project you actually depend on", "Blur personal and payment details in your proof"],
     proof: "the project name and a blurred receipt", action: "I donated to [project], which I use every day" },
-  { kind: "Help", time: "1 hour", place: "Online", title: "Give honest feedback on someone's work",
+  { kind: "Help", time: "1 hour", place: "Online", title: "Give honest feedback on someone's work", gw: "Feedback-settle: mi-lead, work-across, maker-for.",
     why: "Kind, specific feedback is rare and valuable.",
     tips: ["Say what works first, specifically", "Give one clear suggestion", "Ask before posting publicly"],
     proof: "a note, with their agreement", action: "I gave detailed feedback on [someone]'s project" },
-  { kind: "Help", time: "5 min", place: "Online", title: "Thank someone publicly",
+  { kind: "Help", time: "5 min", place: "Online", title: "Thank someone publicly", gw: "Thank-settle: mi-lead, person-toward.",
     why: "Gratitude is an ember that creates more embers.",
     tips: ["Name exactly what they did", "Tag them if they're happy to be tagged", "Keep it short"],
     proof: "the post itself", action: "I thanked [someone] for [what they did]" },
-  { kind: "Help", time: "1 day", place: "Offline", title: "Help a neighbour",
+  { kind: "Help", time: "1 day", place: "Offline", title: "Help a neighbour", gw: "Help-settle: mi-lead, neighbour-for.",
     why: "The most local fire there is.",
     tips: ["Ask what they actually need", "Shopping, a repair, an hour of company", "Don't post anything about them without asking"],
     proof: "a short note, no names or photos of them unless they agree", action: "I spent time helping a neighbour with [task]" },
-  { kind: "Help", time: "1 hour", place: "Online", title: "Pair up for an ember",
+  { kind: "Help", time: "1 hour", place: "Online", title: "Pair up for an ember", gw: "Ember-settle: mi-between-yu, world-for.",
     why: "Doing it together doubles the embers and makes a friend.",
     tips: ["Find someone new in the Embers topic", "Pick an idea from this page together", "Post it together and credit each other"],
     proof: "a joint post", action: "I teamed up with [someone] for a joint ember" }
@@ -526,6 +529,10 @@ function postText(idea) {
   return `#PrometheusEmber 🌱\n\n${idea.action}.\n${hands}\n📸 [attach your ${idea.proof}]\n\n#PrometheusPantheon #Prometheus`;
 }
 
+function gowithText(idea) {
+  return `${idea.gw}\n\n#PrometheusEmber · Gowith`;
+}
+
 function captionText(idea) {
   const hands = idea.ai ? `\n🤖 AI helped with: [what the AI did]\n🙌 I did: [what you did]\n` : "";
   const tags = `#PrometheusEmber #PrometheusPantheon #Prometheus #DoGood${idea.ai ? " #AIforGood" : ""}`;
@@ -574,7 +581,14 @@ function render(idea) {
       <button type="button" class="btn" id="copy-cap">Copy caption</button>
       <a class="btn" href="https://www.tiktok.com/upload" target="_blank" rel="noopener">Open TikTok upload</a>
     </div>
+    <details class="gowith">
+      <summary class="eyebrow">Optional: say it in Gowith</summary>
+      <p class="count">Post this as a reply under your ember. <code>-lead</code> names who led, <code>-through</code> what helped. Gowith is a CC0 notation by <a href="https://gist.github.com/AndyAyrey/834dd4f60acaa61611d33a66d190309c" target="_blank" rel="noopener">@AndyAyrey</a>.</p>
+      <pre class="post" id="gowith-text">${esc(gowithText(idea))}</pre>
+      <div class="actions"><button type="button" class="btn" id="copy-gw">Copy Gowith line</button></div>
+    </details>
     <p class="count">Then drop your post link in the Telegram group with /ember so the Tenders can count it.</p>`;
+  copyButton(document.getElementById("copy-gw"), gowithText(idea), document.getElementById("gowith-text"));
   copyButton(document.getElementById("copy-x"), text, document.getElementById("post-text"));
   copyButton(document.getElementById("copy-cap"), caption, document.getElementById("caption-text"));
 }

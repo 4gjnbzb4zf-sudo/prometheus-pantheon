@@ -162,7 +162,6 @@ a { color: var(--flame); }
 .count { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
 .empty { color: var(--muted); }
 .gowith { display: grid; gap: 10px; border-top: 1px solid var(--line); padding-top: 14px; }
-.gowith summary { cursor: pointer; }
 .gowith code { font-family: var(--font-mono); font-size: 12px; color: var(--flame); }
 
 /* Week */
@@ -559,12 +558,12 @@ function render(idea) {
       <button type="button" class="btn" id="copy-cap">Copy caption</button>
       <a class="btn" href="https://www.tiktok.com/upload" target="_blank" rel="noopener">Open TikTok upload</a>
     </div>
-    <details class="gowith">
-      <summary class="eyebrow">Optional: say it in Gowith</summary>
-      <p class="count">Post this as a reply under your ember. <code>-lead</code> names who led, <code>-through</code> what helped. Gowith is a CC0 notation by <a href="https://gist.github.com/AndyAyrey/834dd4f60acaa61611d33a66d190309c" target="_blank" rel="noopener">@AndyAyrey</a>.</p>
+    <div class="gowith">
+      <div class="eyebrow">Recommended: say it in Gowith</div>
+      <p class="count">Add this line to your post or as a reply under it. <code>-lead</code> names who led, <code>-through</code> what helped: honest credit, written as grammar. Gowith is a CC0 notation by <a href="https://gist.github.com/AndyAyrey/834dd4f60acaa61611d33a66d190309c" target="_blank" rel="noopener">@AndyAyrey</a>.</p>
       <pre class="post" id="gowith-text">${esc(gowithText(idea))}</pre>
       <div class="actions"><button type="button" class="btn" id="copy-gw">Copy Gowith line</button></div>
-    </details>
+    </div>
     <p class="count">Then drop your post link in the Telegram group with /ember so the Tenders can count it.</p>`;
   copyButton(document.getElementById("copy-gw"), gowithText(idea), document.getElementById("gowith-text"));
   copyButton(document.getElementById("copy-x"), text, document.getElementById("post-text"));

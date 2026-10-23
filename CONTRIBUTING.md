@@ -16,10 +16,12 @@ Anyone can propose changes. Nothing goes live without review: the `main` branch 
 | The Hearth | `site/pages/hearth.html` |
 | Lore and the Loom's law | `lore/*.md` |
 | The proposal | `proposal.md` |
-| Ember Generator ideas | `site/ember-generator.html` (the `IDEAS` list) |
+| Ember Generator ideas | `site/ember-generator.html`: hand-picked ideas in `IDEAS`, generated ones in `FAMILIES` |
 | Shared look | `assets/site.css` |
 
 Then run `python3 site/build.py` and commit both the source and the rebuilt pages.
+
+**Multiply the Loom:** each generated family combines what × where × for whom × with whom × when × how it spreads. Adding one sensible word to a list multiplies the number of ideas. Keep every combination a real, safe, sensible deed: if a word only makes sense with some others, attach it to them (see how `where` and `for` can be set per item).
 
 ## What gets merged
 - Honest, verifiable content. No claims that Andy Ayrey or Truth Terminal endorse, hold or run anything.

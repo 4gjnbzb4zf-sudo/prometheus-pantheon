@@ -161,8 +161,9 @@ a { color: var(--flame); }
 .btn:hover { border-color: var(--flame-dim); }
 .count { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
 .empty { color: var(--muted); }
-.gowith { display: grid; gap: 10px; border-top: 1px solid var(--line); padding-top: 14px; }
-.gowith code { font-family: var(--font-mono); font-size: 12px; color: var(--flame); }
+.tag--code { color: var(--muted); }
+.attach { font-family: var(--font-mono); font-size: 13px; color: var(--flame); border: 1px dashed var(--flame-dim); border-radius: 6px; padding: 8px 12px; }
+.gowith-note code { font-family: var(--font-mono); font-size: 12px; color: var(--flame); }
 
 /* Week */
 .week { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
@@ -208,7 +209,8 @@ footer code { font-family: var(--font-mono); font-size: 12px; color: var(--fg); 
       <div class="eyebrow">Prometheus Pantheon · The Ember Loom</div>
       <h1>Ember Generator</h1>
       <p class="law">The flame cannot be stolen. It can only be given.</p>
-      <p class="intro">An ember is something real you give to the world: you make, teach, plant, fix or help. The brightest embers use both hands: AI helps you plan or build, and you do the real deed and post the action shot. Pick how much time you have, draw an idea, do it well, and post the action shot on X or TikTok with #PrometheusEmber. Every 50 embers, the community weaves the next chapter of Loria.</p>
+      <p class="law">Let the lore inspire you. The rest grows into a good green flame: life for the Earth, warmth for the Hearth.</p>
+      <p class="intro">An ember is something real you give to the world: you make, teach, plant, fix or help. The brightest embers use both hands: AI helps you plan or build, and you do the real deed and post the action shot. Pick how much time you have, draw an idea, do it well, and post the action shot on X or TikTok with #PrometheusEmber. Every post already carries its Gowith line, so who did what stays honest. Every 50 embers, the community weaves the next chapter of Loria.</p>
     </div>
   </header>
 
@@ -261,7 +263,7 @@ footer code { font-family: var(--font-mono); font-size: 12px; color: var(--fg); 
     <div class="week">
       <div class="day"><div class="num">Film</div><h3>Before, during, after</h3><p>15 to 30 seconds, vertical. Show the place before, your hands doing it, and the result.</p></div>
       <div class="day"><div class="num">Show</div><h3>The deed, not the face</h3><p>Hands, tools, plants and results. No faces, names, house numbers or street signs without consent.</p></div>
-      <div class="day"><div class="num">Say</div><h3>What AI did, what you did</h3><p>One honest line each. If AI only planned it, say so. That honesty is what makes it an ember.</p></div>
+      <div class="day"><div class="num">Say</div><h3>Who led, what helped</h3><p>Your post's Gowith line says it: <code>mi-lead</code> for you, <code>AI-through</code> if AI helped. Keep it true. That honesty is what makes it an ember.</p></div>
       <div class="day"><div class="num">Tag</div><h3>#PrometheusEmber</h3><p>Plus #PrometheusPantheon and #Prometheus. On X, attach the photo or clip to the post. On TikTok and Reels, paste the caption.</p></div>
       <div class="day"><div class="num">Drop</div><h3>Share the link in Telegram</h3><p>Paste your post link in the group with /ember. Tenders count it and repost it from the project account.</p></div>
     </div>
@@ -461,6 +463,372 @@ const IDEAS = [
     proof: "a joint post", action: "I teamed up with [someone] for a joint ember" }
 ];
 
+// --- generated ideas start ---
+// Deed families. Each "what" can bring its own sensible places and beneficiaries;
+// every counted combination is a distinct sentence with its own Gowith line.
+const L = (en, gw, extra) => Object.assign({ en, gw }, extra || {});
+const NONE = [L("", "")];
+const P = {
+  street: L("in my street", "street"), park: L("in a local park", "park"), school: L("in a school garden", "school-garden"),
+  river: L("along a riverbank", "riverbank"), beach: L("on a beach", "beach"), balcony: L("on my balcony", "balcony"),
+  courtyard: L("in my building's courtyard", "courtyard"), garden: L("in a community garden", "community-garden"),
+  trail: L("along a forest trail", "forest-trail"), playground: L("at a playground", "playground"), busstop: L("around a bus stop", "bus-stop"),
+  work: L("at my workplace", "workplace"), library: L("at the library", "library"), market: L("at the market", "market"),
+  lake: L("on a lakeshore", "lakeshore"), field: L("around a sports field", "sports-field"), home: L("at home", "home"),
+  yard: L("in my garden", "my-garden"), carpark: L("around a car park", "car-park"), schoolgate: L("near a school gate", "school-gate"),
+  building: L("in my building", "building"), hood: L("in my neighbourhood", "neighbourhood"), centre: L("at a community centre", "community-centre"),
+  theirs: L("at their place", "their-home"), repaircafe: L("at a repair café", "repair-cafe"),
+  tg: L("in the Telegram group", "telegram"), x: L("on X", "x"), github: L("on GitHub", "github"), gitlab: L("on GitLab", "gitlab"),
+  codeberg: L("on Codeberg", "codeberg"), wiki: L("on Wikipedia", "wikipedia"), osm: L("on OpenStreetMap", "openstreetmap"),
+  forum: L("on a forum I use", "forum"), discord: L("on a Discord I'm in", "discord"), local: L("in a local online group", "local-group"),
+  weblate: L("on a translation platform", "translation-platform"), print: L("on paper for the notice board", "notice-board")
+};
+const at = keys => keys.map(k => P[k]);
+const WITH = [L("", ""), L(" with a friend", "friend-with"), L(" with my kids", "kids-with"), L(" with my family", "family-with"),
+  L(" with a colleague", "colleague-with"), L(" with my partner", "partner-with"), L(" with someone new from the group", "newcomer-with")];
+const WITH_FEW = [L("", ""), L(" with a friend", "friend-with"), L(" with someone new from the group", "newcomer-with")];
+const WHEN = [L("", ""), L(" this weekend", "weekend-around"), L(" on my lunch break", "lunch-around"), L(" before work", "morning-around"),
+  L(" on a rainy day", "rain-around"), L(" at sunrise", "sunrise-around"), L(" after school", "after-school-around"),
+  L(" on a day off", "day-off-around"), L(" in the evening", "evening-around")];
+const SPREAD = [L("", ""), L(" and showed someone how", "someone-toward"), L(" and invited others to join", "others-toward"),
+  L(" for the first time", "first-time-around"), L(" and wrote a short how-to", "how-to-toward")];
+const PEOPLE = [L("a grandparent", "grandparent"), L("a parent", "parent"), L("a neighbour", "neighbour"), L("a student", "student"),
+  L("someone new in town", "newcomer"), L("an elderly neighbour", "elder-neighbour"), L("a single parent", "single-parent"), L("a new parent", "new-parent")];
+const LANGS = ["French", "Spanish", "Portuguese", "German", "Italian", "Dutch", "Polish", "Ukrainian", "Romanian", "Greek", "Turkish", "Arabic",
+  "Persian", "Hebrew", "Hindi", "Bengali", "Urdu", "Tamil", "Indonesian", "Malay", "Vietnamese", "Thai", "Tagalog", "Japanese", "Korean",
+  "Mandarin", "Swahili", "Amharic", "Yoruba", "Russian"].map(l => L(l, l.toLowerCase()));
+
+const FAMILIES = [
+  { root: "Plant-settle", kind: "Life", time: "1 hour", place: "Offline", with: WITH,
+    why: "The green flame grows things. This one grows for real.",
+    tips: ["Choose species native to your area, never invasive ones", "Plant only where it's allowed, and ask first", "Come back to water it next week"],
+    proof: "a photo of what you planted",
+    ai: { task: "find which species are native here", tip: "AI can be wrong about species: confirm with a local nursery or an official native-plant list" },
+    where: at(["park", "school", "balcony", "courtyard", "garden", "work", "yard", "schoolgate", "hood"]),
+    for: [L("pollinators", "pollinators"), L("birds", "birds"), L("my neighbours", "neighbours"), L("the soil", "soil"),
+      L("shade on hot days", "shade"), L("the kids nearby", "kids"), L("people walking by", "passers-by")],
+    what: [L("native wildflowers", "wildflowers"), L("a pollinator patch", "pollinator-patch"), L("a herb planter", "herbs"),
+      L("vegetable seedlings", "seedlings"), L("native grasses", "native-grasses"), L("sunflowers", "sunflowers"), L("spring bulbs", "bulbs"),
+      L("a native tree", "native-tree", { where: at(["park", "school", "garden", "yard", "schoolgate", "hood"]) }),
+      L("a fruit tree", "fruit-tree", { where: at(["school", "garden", "yard", "courtyard"]) }),
+      L("a small hedge", "hedge", { where: at(["school", "garden", "yard", "courtyard", "work"]) }),
+      L("a native shrub", "native-shrub", { where: at(["park", "school", "garden", "yard", "courtyard", "work"]) }),
+      L("climbing plants on a bare wall", "climbers", { where: at(["courtyard", "school", "work", "yard", "garden"]) })],
+    title: s => `Plant ${s.what.en} ${s.where.en}`,
+    action: s => `I planted ${s.what.en} ${s.where.en} for ${s.for.en}`,
+    gw: s => [`${s.what.gw}-with`, `${s.where.gw}-among`, `${s.for.gw}-for`] },
+
+  { root: "Clean-settle", kind: "Life", time: "1 hour", place: "Offline", with: WITH,
+    why: "Visible, local, and anyone can do it.",
+    tips: ["Wear gloves and skip sharp or hazardous items", "Sort recycling if you can", "Photograph the bag, not people"],
+    proof: "a photo of the bag",
+    ai: { task: "plan a safe route and a short invite", tip: "Check local rules before you go; AI doesn't know them" },
+    where: at(["street", "park", "river", "beach", "trail", "playground", "busstop", "lake", "field", "market", "carpark", "schoolgate", "hood"]),
+    for: [L("wildlife", "wildlife"), L("the kids who play there", "kids"), L("everyone passing by", "passers-by"), L("the birds", "birds"), L("my neighbourhood", "neighbourhood")],
+    what: [L("litter", "litter"), L("plastic bottles", "plastic"), L("cigarette butts", "cigarette-butts"), L("cans and wrappers", "wrappers"),
+      L("plastic bags", "plastic-bags"), L("food packaging", "packaging"), L("balloon scraps", "balloon-scraps"),
+      L("fishing line", "fishing-line", { where: at(["river", "beach", "lake"]) })],
+    title: s => `Clear ${s.what.en} ${s.where.en}`,
+    action: s => `I cleared ${s.what.en} ${s.where.en} for ${s.for.en}`,
+    gw: s => [`${s.what.gw}-from`, `${s.where.gw}-among`, `${s.for.gw}-for`] },
+
+  { root: "Shelter-settle", kind: "Life", time: "1 hour", place: "Offline", with: WITH,
+    why: "Small shelters give wildlife a place to rest, drink and raise young.",
+    tips: ["Check which species actually live near you", "Keep it clean and out of reach of cats", "Put it somewhere quiet and shaded"],
+    proof: "a photo of it in place",
+    ai: { task: "check which species live nearby and what they need", tip: "Confirm with a local wildlife group before building" },
+    where: at(["balcony", "courtyard", "school", "garden", "work", "yard"]),
+    for: NONE,
+    what: [L("a water dish for birds", "water-dish", { gwFor: "birds" }), L("a water dish for insects", "insect-water", { gwFor: "insects" }),
+      L("a bird feeder", "bird-feeder", { gwFor: "birds" }), L("a bee hotel", "bee-hotel", { gwFor: "wild-bees" }),
+      L("a nest box", "nest-box", { gwFor: "birds" }), L("a log pile for insects", "log-pile", { gwFor: "insects" }),
+      L("a butterfly feeder", "butterfly-feeder", { gwFor: "butterflies" }), L("a hedgehog doorway in a fence", "hedgehog-gap", { gwFor: "hedgehogs", where: at(["yard", "garden", "school"]) })],
+    title: s => `Put out ${s.what.en} ${s.where.en}`,
+    action: s => `I put out ${s.what.en} ${s.where.en}`,
+    gw: s => [`${s.what.gw}-through`, `${s.where.gw}-among`, `${s.what.gwFor}-for`] },
+
+  { root: "Repair-settle", kind: "Help", time: "1 hour", place: "Offline", with: WITH,
+    why: "Every repair keeps something out of the bin and someone's day running.",
+    tips: ["Ask what they need before you start", "Stay safe: unplug and use the right tools", "Show them how, so they can do it next time"],
+    proof: "a before and after photo",
+    ai: { task: "work out what was broken and how to fix it", tip: "Double-check AI repair steps before touching anything electrical" },
+    where: at(["theirs", "building", "street", "repaircafe", "centre"]),
+    for: PEOPLE,
+    what: [L("a bike", "bike"), L("a wobbly chair", "chair"), L("a broken toy", "toy"), L("a torn jacket", "jacket"), L("a squeaky door", "door"),
+      L("a leaky tap", "tap"), L("a stuck zip", "zip"), L("a garden tool", "garden-tool"), L("a loose shelf", "shelf"), L("a broken umbrella", "umbrella"),
+      L("a pair of shoes", "shoes"), L("a lamp", "lamp")],
+    title: s => `Repair ${s.what.en} for ${s.for.en}`,
+    action: s => `I repaired ${s.what.en} for ${s.for.en} ${s.where.en}`,
+    gw: s => [`${s.what.gw}-across`, `${s.for.gw}-for`, `${s.where.gw}-among`] },
+
+  { root: "Help-settle", kind: "Help", time: "1 hour", place: "Offline", with: WITH,
+    why: "The most local fire there is.",
+    tips: ["Ask what they actually need", "Respect their pace and their privacy", "Don't post anything about them without asking"],
+    proof: "a short note, no names or photos of them unless they agree",
+    ai: { task: "plan it and find the right information", tip: "Never give AI their personal details" },
+    where: at(["street", "building", "hood"]),
+    for: PEOPLE,
+    what: [L("carry their groceries", "groceries"), L("set up their new phone", "phone"), L("fill in a form", "form"), L("move some furniture", "furniture"),
+      L("walk their dog", "dog"), L("clear snow or leaves", "path"), L("hang some shelves", "shelves"), L("water their plants", "plants"),
+      L("take out heavy bins", "bins"), L("find a reliable doctor or service", "service")],
+    title: s => `Help ${s.for.en} ${s.what.en}`,
+    action: s => `I helped ${s.for.en} ${s.what.en} ${s.where.en}`,
+    gw: s => [`${s.for.gw}-for`, `${s.what.gw}-with`, `${s.where.gw}-among`] },
+
+  { root: "Cook-settle", kind: "Help", time: "1 hour", place: "Offline", with: WITH,
+    why: "A meal is the warmest kind of fire.",
+    tips: ["Ask about allergies and diet first", "Label what's in it", "Deliver it fresh, in a container they keep"],
+    proof: "a photo of the food (no people unless they agree)",
+    ai: { task: "find a recipe that fits their diet", tip: "Check allergens yourself; AI recipes can miss them" },
+    where: NONE,
+    for: [L("a neighbour", "neighbour"), L("a new parent", "new-parent"), L("someone who is unwell", "unwell"), L("a busy friend", "busy-friend"),
+      L("an elderly neighbour", "elder-neighbour"), L("a student far from home", "student")],
+    what: [L("a warm meal", "meal"), L("a pot of soup", "soup"), L("fresh bread", "bread"), L("a batch of cookies", "cookies"), L("a week of lunches", "lunches")],
+    title: s => `Cook ${s.what.en} for ${s.for.en}`,
+    action: s => `I cooked ${s.what.en} for ${s.for.en}`,
+    gw: s => [`${s.what.gw}-toward`, `${s.for.gw}-for`] },
+
+  { root: "Give-settle", kind: "Help", time: "1 hour", place: "Offline", with: WITH,
+    why: "Things you don't use can keep someone warm, fed or learning.",
+    tips: ["Ask what's actually needed first", "Give only clean, working things", "Drop off sealed food only"],
+    proof: "a photo of what you gave (no people)",
+    where: NONE,
+    for: [L("a shelter", "shelter"), L("a school", "school"), L("my neighbours", "neighbours"), L("a little free library", "free-library"), L("a charity shop", "charity-shop")],
+    what: [L("books", "books"), L("warm clothes", "warm-clothes"), L("toys", "toys"), L("seeds", "seeds"), L("school supplies", "school-supplies"),
+      L("blankets", "blankets"), L("kitchen tools", "kitchen-tools"), L("board games", "board-games"),
+      L("sealed food", "food", { for: [L("a food bank", "food-bank"), L("a shelter", "shelter"), L("a community fridge", "community-fridge")] })],
+    title: s => `Give ${s.what.en} to ${s.for.en}`,
+    action: s => `I gave ${s.what.en} to ${s.for.en}`,
+    gw: s => [`${s.what.gw}-with`, `${s.for.gw}-toward`] },
+
+  { root: "Thank-settle", kind: "Help", time: "5 min", place: "Offline", with: WITH_FEW,
+    why: "Gratitude is an ember that creates more embers.",
+    tips: ["Name exactly what they do well", "Keep it short and real", "Don't photograph them without asking"],
+    proof: "a short note on who you thanked (no photos without consent)",
+    where: NONE,
+    for: [L("their daily work", "daily-work"), L("a small kindness", "kindness"), L("their patience", "patience"), L("keeping things running", "care")],
+    what: [L("a bus driver", "bus-driver"), L("a nurse", "nurse"), L("a teacher", "teacher"), L("a cleaner", "cleaner"), L("a librarian", "librarian"),
+      L("a delivery rider", "delivery-rider"), L("a shop worker", "shop-worker"), L("a volunteer", "volunteer"), L("a postal worker", "postal-worker"),
+      L("a caretaker", "caretaker"), L("an open-source maintainer", "maintainer"), L("a mentor", "mentor")],
+    title: s => `Thank ${s.what.en}`,
+    action: s => `I thanked ${s.what.en} for ${s.for.en}`,
+    gw: s => [`${s.what.gw}-toward`, `${s.for.gw}-around`] },
+
+  { root: "Teach-settle", kind: "Knowledge", time: "1 hour", place: "Offline", with: WITH_FEW,
+    why: "Knowledge passed hand to hand is the oldest kind of fire.",
+    tips: ["Let them do it themselves", "Go slowly and check they're comfortable", "Ask before sharing anything about them"],
+    proof: "a short note on what you taught (no names unless they agree)",
+    ai: { task: "build a short lesson plan", tip: "Test the AI's steps yourself before teaching them" },
+    where: at(["theirs", "library", "centre", "work", "home"]),
+    for: PEOPLE,
+    what: [L("how to spot a phishing message", "phishing"), L("how to turn on two-factor login", "two-factor"), L("how to use a password manager", "password-manager"),
+      L("how to back up their photos", "backup"), L("how to make a video call", "video-call"), L("how to fix a bike puncture", "puncture"),
+      L("how to cook a simple meal", "cooking"), L("how to recognise native plants", "native-plants"), L("how to compost", "compost"),
+      L("how to use an AI assistant safely", "ai-safety"), L("how to make a budget", "budget"), L("how to sew on a button", "sewing"),
+      L("how to read a bus timetable app", "transit-app"), L("how to spot fake news", "fake-news")],
+    title: s => `Teach ${s.for.en} ${s.what.en}`,
+    action: s => `I taught ${s.for.en} ${s.what.en} ${s.where.en}`,
+    gw: s => [`${s.what.gw}-with`, `${s.for.gw}-toward`, `${s.where.gw}-among`] },
+
+  { root: "Translate-settle", kind: "Knowledge", time: "1 hour", place: "Online", with: WITH_FEW,
+    why: "Every translation opens a door to a new community.",
+    tips: ["Translate the meaning, not word for word", "Ask a native speaker to reread it", "Say which parts AI did and which you fixed"],
+    proof: "the translated text, or a link to it",
+    ai: { task: "draft the translation", tip: "Have a native speaker check every line; AI misses nuance" },
+    where: NONE,
+    for: LANGS,
+    what: [L("Chapter 0", "chapter", { where: at(["tg", "github"]) }), L("the newcomer safety checklist", "checklist", { where: at(["tg", "local"]) }),
+      L("a local association's flyer", "flyer", { where: at(["print", "local"]) }), L("an open-source app's interface", "app-interface", { where: at(["weblate", "github"]) }),
+      L("a short Wikipedia article", "wiki-article", { where: at(["wiki"]) }), L("the Ember Generator", "generator", { where: at(["github"]) })],
+    title: s => `Translate ${s.what.en} into ${s.for.en}`,
+    action: s => `I translated ${s.what.en} into ${s.for.en} ${s.where.en}`,
+    gw: s => [`${s.what.gw}-from`, `${s.for.gw}-readers-for`, `${s.where.gw}-among`] },
+
+  { root: "Explain-settle", kind: "Knowledge", time: "1 hour", place: "Online", with: WITH_FEW,
+    why: "Clear explainers bring in people who would never read the lore.",
+    tips: ["Pick one idea and keep it short", "Use plain words, no jargon", "End with one link to learn more"],
+    proof: "a link to it",
+    ai: { task: "structure it and find simple examples", tip: "Fact-check everything AI writes before posting" },
+    where: at(["x", "tg", "forum", "discord", "local"]),
+    for: [L("newcomers", "newcomers"), L("kids", "kids"), L("grandparents", "grandparents"), L("my group", "group"), L("non-tech friends", "non-tech-friends")],
+    what: [L("hyperstition", "hyperstition"), L("seed phrase safety", "seed-safety"), L("how AI models learn", "ai-learning"), L("why native plants matter", "native-plants"),
+      L("what open source is", "open-source"), L("how to spot a scam", "scams"), L("composting", "compost"), L("what Gowith is", "gowith"),
+      L("how to protect their privacy online", "privacy"), L("how recycling really works", "recycling")],
+    title: s => `Explain ${s.what.en} for ${s.for.en}`,
+    action: s => `I explained ${s.what.en} for ${s.for.en} ${s.where.en}`,
+    gw: s => [`${s.what.gw}-with`, `${s.for.gw}-for`, `${s.where.gw}-among`] },
+
+  { root: "Map-settle", kind: "Knowledge", time: "1 hour", place: "Online", with: WITH_FEW,
+    why: "Open maps help millions of people find what they need.",
+    tips: ["Only add what you've seen yourself", "Follow the map's editing guidelines", "Add a short edit note"],
+    proof: "a link to your edit",
+    ai: { task: "check what's missing in my area", tip: "Verify on the ground; never copy from copyrighted maps" },
+    where: at(["osm"]),
+    for: [L("my town", "town"), L("people with reduced mobility", "mobility"), L("cyclists", "cyclists"), L("visitors", "visitors"), L("parents with prams", "parents")],
+    what: [L("a public water fountain", "fountain"), L("a bench", "bench"), L("a bike rack", "bike-rack"), L("a wheelchair ramp", "ramp"),
+      L("a recycling point", "recycling-point"), L("a public toilet", "toilet"), L("a community garden", "garden"), L("a defibrillator", "defibrillator"),
+      L("a step-free entrance", "step-free"), L("a little free library", "free-library"), L("a shaded rest spot", "shade-spot"), L("a safe crossing", "crossing")],
+    title: s => `Add ${s.what.en} to the open map`,
+    action: s => `I added ${s.what.en} ${s.where.en} for ${s.for.en}`,
+    gw: s => [`${s.what.gw}-toward`, `${s.where.gw}-through`, `${s.for.gw}-for`] },
+
+  { root: "Improve-settle", kind: "Knowledge", time: "1 hour", place: "Online", with: WITH_FEW,
+    why: "One good paragraph on Wikipedia is read by thousands of strangers.",
+    tips: ["Cite a reliable source for every fact", "Write neutrally, no promotion", "Never edit about yourself or people you know"],
+    proof: "a link to your edit",
+    ai: { task: "find sources and tighten the wording", tip: "Check every source yourself; AI can invent citations" },
+    where: at(["wiki"]),
+    for: [L("students", "students"), L("visitors", "visitors"), L("locals", "locals"), L("readers in other countries", "far-readers")],
+    what: [L("the article about my town", "town-article"), L("an article about a native plant", "plant-article"), L("an article about a local river", "river-article"),
+      L("an article about a local landmark", "landmark-article"), L("an article about a local bird", "bird-article"), L("a short history section", "history")],
+    title: s => `Improve ${s.what.en}`,
+    action: s => `I improved ${s.what.en} ${s.where.en} for ${s.for.en}`,
+    gw: s => [`${s.what.gw}-across`, `${s.where.gw}-through`, `${s.for.gw}-for`] },
+
+  { root: "Describe-settle", kind: "Knowledge", time: "1 hour", place: "Online", with: WITH_FEW,
+    why: "Accessibility lets everyone take part in the story.",
+    tips: ["Describe what matters, not every detail", "Keep it short and clear", "Ask someone who uses it if it helps"],
+    proof: "the result, or a link to it",
+    ai: { task: "draft it", tip: "Correct every AI draft; it misses details and context" },
+    where: at(["tg", "x", "github", "local"]),
+    for: [L("blind readers", "blind-readers"), L("deaf viewers", "deaf-viewers"), L("people with dyslexia", "dyslexic-readers"), L("older readers", "older-readers")],
+    what: [L("alt text to community images", "alt-text"), L("captions to a video", "captions"), L("a plain-language summary to a long post", "plain-summary"),
+      L("a clearer layout to a flyer", "clear-layout"), L("a transcript to a voice note", "transcript")],
+    title: s => `Add ${s.what.en}`,
+    action: s => `I added ${s.what.en} ${s.where.en} for ${s.for.en}`,
+    gw: s => [`${s.what.gw}-toward`, `${s.where.gw}-among`, `${s.for.gw}-for`] },
+
+  { root: "Build-settle", kind: "Tools", time: "1 day", place: "Online", with: WITH_FEW,
+    why: "With AI, anyone can ship a useful tool in a day.",
+    tips: ["Solve one real problem someone has", "Test it with that person", "Publish the code openly"],
+    proof: "a link to the tool and its code",
+    ai: { task: "write the code", tip: "Read and test the code; say AI helped write it" },
+    where: at(["github", "codeberg", "tg"]),
+    for: [L("my family", "family"), L("my club", "club"), L("my building", "building"), L("a local association", "association"), L("the group", "group"), L("my class", "class")],
+    what: [L("a watering reminder", "watering-reminder"), L("a fair bill splitter", "bill-splitter"), L("a recycling guide", "recycling-guide"),
+      L("a shared chore list", "chore-list"), L("a lost-and-found page", "lost-found"), L("a volunteer sign-up sheet", "sign-up"), L("a tool-lending list", "tool-library"),
+      L("a carpool board", "carpool"), L("a seed-swap list", "seed-swap"), L("a simple event calendar", "calendar")],
+    title: s => `Build ${s.what.en} for ${s.for.en}`,
+    action: s => `I built ${s.what.en} for ${s.for.en} ${s.where.en}`,
+    gw: s => [`${s.what.gw}-toward`, `${s.for.gw}-for`, `${s.where.gw}-among`] },
+
+  { root: "Fix-settle", kind: "Tools", time: "1 hour", place: "Online", with: WITH_FEW,
+    why: "Open-source projects run on small fixes from strangers.",
+    tips: ["Look for 'good first issue' labels", "Follow the project's contribution guide", "Keep the change small and clear"],
+    proof: "a link to your pull request",
+    ai: { task: "understand the code", tip: "Check every AI-suggested change before submitting" },
+    where: at(["github", "gitlab", "codeberg"]),
+    for: [L("an app I use", "app"), L("a library my apps use", "library"), L("a small project", "small-project"), L("a tool my friends use", "friends-tool")],
+    what: [L("a typo", "typo"), L("a broken link", "broken-link"), L("an unclear install step", "install-step"), L("a missing translation", "translation"),
+      L("an accessibility bug", "accessibility-bug"), L("an outdated example", "example"), L("a confusing error message", "error-message"), L("a missing test", "test")],
+    title: s => `Fix ${s.what.en} in ${s.for.en}`,
+    action: s => `I fixed ${s.what.en} in ${s.for.en} ${s.where.en}`,
+    gw: s => [`${s.what.gw}-across`, `${s.for.gw}-for`, `${s.where.gw}-among`] },
+
+  { root: "Share-settle", kind: "Tools", time: "5 min", place: "Online", with: WITH_FEW,
+    why: "A tested tool or template saves someone else an hour.",
+    tips: ["Share only what you've really used", "Show one real example", "Say what it's bad at too"],
+    proof: "the post itself",
+    ai: { task: "polish the wording", tip: "Keep your real example; don't let AI invent results" },
+    where: at(["x", "tg", "forum", "github"]),
+    for: [L("planning a cleanup", "cleanup"), L("learning a language", "language-learning"), L("studying", "studying"), L("budgeting", "budgeting"),
+      L("job applications", "job-hunting"), L("writing a hard letter", "hard-letter"), L("starting a garden", "gardening")],
+    what: [L("a prompt", "prompt"), L("a checklist", "checklist"), L("a template", "template"), L("a spreadsheet", "spreadsheet")],
+    title: s => `Share ${s.what.en} for ${s.for.en}`,
+    action: s => `I shared ${s.what.en} for ${s.for.en} ${s.where.en}`,
+    gw: s => [`${s.what.gw}-with`, `${s.for.gw}-around`, `${s.where.gw}-among`] },
+
+  { root: "Report-settle", kind: "Tools", time: "5 min", place: "Online", with: NONE,
+    why: "Every scam reported is one fewer person drained.",
+    tips: ["Report it through the platform, don't engage", "Never click or test the link", "Warn the group without sharing the scam"],
+    proof: "a note that you reported it (no scam links)",
+    where: at(["tg", "x", "discord", "forum", "local"]),
+    for: [L("the community", "community"), L("newcomers", "newcomers"), L("older members", "older-members")],
+    what: [L("a scam account", "scam-account"), L("a phishing link", "phishing-link"), L("a fake giveaway", "fake-giveaway"), L("an impersonator", "impersonator"),
+      L("a fake support DM", "fake-support"), L("a wallet drainer site", "drainer")],
+    title: s => `Report ${s.what.en}`,
+    action: s => `I reported ${s.what.en} ${s.where.en} to protect ${s.for.en}`,
+    gw: s => [`${s.what.gw}-against`, `${s.where.gw}-among`, `${s.for.gw}-for`] },
+
+  { root: "Welcome-settle", kind: "Help", time: "5 min", place: "Online", with: NONE,
+    why: "The first reply someone gets decides whether they stay.",
+    tips: ["Greet them by name", "Point them to /ca, /rules and /idea", "Ask what brought them here"],
+    proof: "a note in the Embers topic",
+    where: at(["tg", "discord", "forum", "local"]),
+    for: NONE,
+    what: [L("three newcomers", "newcomers"), L("a quiet member", "quiet-member"), L("someone who asked for help", "asker"), L("a returning member", "returning-member")],
+    title: s => `Welcome ${s.what.en}`,
+    action: s => `I welcomed ${s.what.en} ${s.where.en}`,
+    gw: s => [`${s.what.gw}-toward`, `${s.where.gw}-among`] },
+
+  { root: "Donate-settle", kind: "Help", time: "5 min", place: "Online", with: NONE,
+    why: "Small, regular gifts keep the work of others alive.",
+    tips: ["Any amount counts", "Give only through official donation pages", "Blur personal and payment details in your proof"],
+    proof: "the cause's name and a blurred receipt",
+    where: NONE, for: NONE,
+    what: [L("an open-source project I use", "open-source"), L("a food bank", "food-bank"), L("an animal shelter", "animal-shelter"), L("a wildlife rescue", "wildlife-rescue"),
+      L("my local library", "library"), L("a tree-planting group", "tree-planters"), L("a river cleanup group", "river-cleanup"), L("a refugee welcome group", "refugee-welcome"),
+      L("a children's hospital", "childrens-hospital"), L("a community radio", "community-radio")],
+    title: s => `Donate to ${s.what.en}`,
+    action: s => `I donated to ${s.what.en}`,
+    gw: s => [`${s.what.gw}-toward`] },
+
+  { root: "Volunteer-settle", kind: "Help", time: "1 day", place: "Offline", with: WITH,
+    why: "Showing up where others already work multiplies the effect.",
+    tips: ["Ask how you can help most", "Follow the organisers' lead", "Credit them in your post"],
+    proof: "a photo, with the organisers' agreement",
+    where: NONE, for: NONE,
+    what: [L("at a food bank", "food-bank"), L("at an animal shelter", "animal-shelter"), L("at a community garden", "community-garden"), L("at a repair café", "repair-cafe"),
+      L("at a cleanup day", "cleanup-day"), L("at a library reading hour", "reading-hour"), L("at a soup kitchen", "soup-kitchen"), L("at a tree-planting day", "planting-day"),
+      L("at a school fair", "school-fair"), L("at a blood donation drive", "blood-drive")],
+    title: s => `Volunteer ${s.what.en}`,
+    action: s => `I volunteered ${s.what.en}`,
+    gw: s => [`${s.what.gw}-among`] }
+];
+
+const _blocks = new Map();
+function famBlocks(f) {
+  // one block per "what": [where, for, with, when]
+  if (!_blocks.has(f)) {
+    _blocks.set(f, f.what.map(w => {
+      const lists = [w.where || f.where || NONE, w.for || f.for || NONE, f.with || WITH, WHEN, SPREAD];
+      return { w, lists, size: lists.reduce((n, l) => n * l.length, 1) };
+    }));
+  }
+  return _blocks.get(f);
+}
+function famSize(f, aiMode) {
+  const base = famBlocks(f).reduce((n, b) => n + b.size, 0);
+  const variants = aiMode === "With AI" ? (f.ai ? 1 : 0) : aiMode === "By hand" ? 1 : (f.ai ? 2 : 1);
+  return base * variants;
+}
+function famDecode(fi, idx, aiMode) {
+  const f = FAMILIES[fi];
+  let ai;
+  if (aiMode === "With AI") ai = true;
+  else if (aiMode === "By hand") ai = false;
+  else if (f.ai) { ai = idx % 2 === 1; idx = Math.floor(idx / 2); }
+  else ai = false;
+  let block;
+  for (const b of famBlocks(f)) { if (idx < b.size) { block = b; break; } idx -= b.size; }
+  const pick = block.lists.map(list => { const v = list[idx % list.length]; idx = Math.floor(idx / list.length); return v; });
+  const s = { what: block.w, where: pick[0], for: pick[1], with: pick[2], when: pick[3], spread: pick[4] };
+  const parts = ["mi-lead"].concat(ai ? ["AI-through"] : [], f.gw(s), [s.with.gw, s.when.gw, s.spread.gw])
+    .filter(p => p && !p.startsWith("-"));
+  const clean = t => t.replace(/\s+/g, " ").trim();
+  return {
+    kind: f.kind, time: f.time, place: f.place, ai,
+    title: (ai ? "With AI: " : "") + clean(f.title(s)),
+    why: f.why,
+    tips: ai ? [f.ai.tip].concat(f.tips.slice(0, 2)) : f.tips,
+    proof: f.proof,
+    action: clean(f.action(s) + s.with.en + s.when.en + s.spread.en),
+    aiTask: ai ? f.ai.task : null,
+    gw: `${f.root}: ${parts.join(", ")}.`
+  };
+}
+// --- generated ideas end ---
+
 const WEEK = [
   { title: "First light", text: "The initiator posts Chapter 0 and the first real ember. Everyone else: read it, say hello, share it once." },
   { title: "Translation day", text: "Translate Chapter 0 or the rules into your language. One paragraph counts." },
@@ -490,30 +858,50 @@ for (const [group, values] of Object.entries(FILTERS)) {
 const form = document.getElementById("filters");
 const result = document.getElementById("result");
 const count = document.getElementById("count");
-let last = null;
+const xl = t => [...t].reduce((n, c) => n + (c.codePointAt(0) > 0x10FF ? 2 : 1), 0);
+const fmt = n => n.toLocaleString("en");
+let lastCode = null;
 
-function matches() {
+function curatedOk(i, f) {
+  return (f.time === "Any" || i.time === f.time) && (f.kind === "All" || i.kind === f.kind) &&
+    (f.place === "Anywhere" || i.place === f.place) && (f.help === "Any" || (f.help === "With AI") === Boolean(i.ai));
+}
+function famOk(fam, f) {
+  return (f.time === "Any" || fam.time === f.time) && (f.kind === "All" || fam.kind === f.kind) &&
+    (f.place === "Anywhere" || fam.place === f.place);
+}
+function pool() {
   const f = Object.fromEntries(new FormData(form));
-  return IDEAS.filter(i =>
-    (f.time === "Any" || i.time === f.time) &&
-    (f.kind === "All" || i.kind === f.kind) &&
-    (f.place === "Anywhere" || i.place === f.place) &&
-    (f.help === "Any" || (f.help === "With AI") === Boolean(i.ai)));
+  const cur = IDEAS.map((idea, k) => ({ idea, k })).filter(c => curatedOk(c.idea, f));
+  const fams = FAMILIES.map((fam, fi) => ({ fi, n: famOk(fam, f) ? famSize(fam, f.help) : 0 })).filter(x => x.n > 0);
+  return { f, cur, fams, total: cur.length + fams.reduce((n, x) => n + x.n, 0) };
+}
+function showCount(p) {
+  count.textContent = `${fmt(p.total)} idea${p.total === 1 ? "" : "s"} match`;
 }
 
-function postText(idea) {
-  const hands = idea.ai ? `\n🤖 AI helped with: [what the AI did]\n🙌 I did: [what you did]\n` : "";
-  return `#PrometheusEmber 🌱\n\n${idea.action}.\n${hands}\n📸 [attach your ${idea.proof}]\n\n#PrometheusPantheon #Prometheus`;
+// Idea codes make every idea shareable: c-<n> for hand-picked, e-<family>-<index> for generated
+function fromCode(code) {
+  let m = /^c-(\d+)$/.exec(code);
+  if (m && IDEAS[+m[1]]) return Object.assign({ code }, IDEAS[+m[1]]);
+  m = /^e-(\d+)-([0-9a-z]+)$/.exec(code);
+  if (m && FAMILIES[+m[1]]) {
+    const fi = +m[1], idx = parseInt(m[2], 36);
+    if (idx < famSize(FAMILIES[fi], "Any")) return Object.assign({ code }, famDecode(fi, idx, "Any"));
+  }
+  return null;
 }
 
-function gowithText(idea) {
-  return `${idea.gw}\n\n#PrometheusEmber · Gowith`;
+function postParts(idea) {
+  const full = `#PrometheusEmber 🌱\n\n${idea.action}.\n\n${idea.gw}\n\n#PrometheusPantheon #Prometheus`;
+  if (xl(full) <= 280) return { main: full, reply: null };
+  return { main: `#PrometheusEmber 🌱\n\n${idea.action}.\n\n#PrometheusPantheon #Prometheus`, reply: `${idea.gw}\n\n#PrometheusEmber` };
 }
 
 function captionText(idea) {
-  const hands = idea.ai ? `\n🤖 AI helped with: [what the AI did]\n🙌 I did: [what you did]\n` : "";
+  const hands = idea.ai ? (idea.aiTask ? `\n🤖 AI helped me ${idea.aiTask}.\n` : `\n🤖 AI helped with: [what the AI did]\n`) : "";
   const tags = `#PrometheusEmber #PrometheusPantheon #Prometheus #DoGood${idea.ai ? " #AIforGood" : ""}`;
-  return `${idea.action} 🌱\n${hands}\nThe flame cannot be stolen. It can only be given.\n\n${tags}`;
+  return `${idea.action} 🌱\n${hands}\n${idea.gw}\n\nThe flame cannot be stolen. It can only be given.\n\n${tags}`;
 }
 
 function copyButton(btn, text, pre) {
@@ -523,10 +911,12 @@ function copyButton(btn, text, pre) {
       btn.textContent = "Copied";
       setTimeout(() => { btn.textContent = label; }, 1800);
     }).catch(() => {
-      const range = document.createRange();
-      range.selectNodeContents(pre);
-      const sel = getSelection(); sel.removeAllRanges(); sel.addRange(range);
-      btn.textContent = "Selected, press Ctrl/Cmd+C";
+      if (pre) {
+        const range = document.createRange();
+        range.selectNodeContents(pre);
+        const sel = getSelection(); sel.removeAllRanges(); sel.addRange(range);
+      }
+      btn.textContent = pre ? "Selected, press Ctrl/Cmd+C" : text;
     });
   });
 }
@@ -537,55 +927,67 @@ function esc(s) {
 
 function render(idea) {
   if (!idea) {
-    result.innerHTML = `<p class="empty">No idea matches all three choices. Loosen one of them and draw again.</p>`;
+    result.innerHTML = `<p class="empty">No idea matches these choices. Loosen one of them and draw again.</p>`;
     return;
   }
-  const text = postText(idea);
+  const { main, reply } = postParts(idea);
   const caption = captionText(idea);
+  const link = location.href.split("#")[0] + "#" + idea.code;
   result.innerHTML = `
-    <div class="tags"><span class="tag">${idea.kind}</span><span class="tag">${idea.time}</span><span class="tag">${idea.place}</span>${idea.ai ? `<span class="tag">Both hands · AI + you</span>` : ""}</div>
+    <div class="tags"><span class="tag">${idea.kind}</span><span class="tag">${idea.time}</span><span class="tag">${idea.place}</span>${idea.ai ? `<span class="tag">Both hands · AI + you</span>` : ""}<span class="tag tag--code">#${esc(idea.code)}</span></div>
     <h3>${esc(idea.title)}</h3>
     <p class="why">${esc(idea.why)}</p>
     <div><div class="eyebrow label">Do it well</div><ul>${idea.tips.map(t => `<li>${esc(t)}</li>`).join("")}</ul></div>
-    <div><div class="eyebrow label">Proof to post</div><p>${esc(idea.proof[0].toUpperCase() + idea.proof.slice(1))}.</p></div>
-    <div><div class="eyebrow label">Post on X</div><pre class="post" id="post-text">${esc(text)}</pre></div>
+    <p class="attach">📸 Attach ${esc(idea.proof)}</p>
+    <div><div class="eyebrow label">Post on X</div><pre class="post" id="post-text">${esc(main)}</pre></div>
     <div class="actions">
-      <a class="btn" href="https://x.com/intent/post?text=${encodeURIComponent(text)}" target="_blank" rel="noopener">Post on X</a>
+      <a class="btn" href="https://x.com/intent/post?text=${encodeURIComponent(main)}" target="_blank" rel="noopener">Post on X</a>
       <button type="button" class="btn" id="copy-x">Copy X post</button>
     </div>
+    ${reply ? `<div><div class="eyebrow label">Then reply under it with its Gowith line</div><pre class="post" id="reply-text">${esc(reply)}</pre></div>
+    <div class="actions"><button type="button" class="btn" id="copy-reply">Copy reply</button></div>` : ""}
+    <p class="count gowith-note">${reply ? "The Gowith line" : "The line before the tags"} is <a href="https://gist.github.com/AndyAyrey/834dd4f60acaa61611d33a66d190309c" target="_blank" rel="noopener">Gowith</a>, a CC0 notation by @AndyAyrey: <code>-lead</code> names who led, <code>-through</code> what helped, <code>-for</code> who it's for. Honest credit, written as grammar.</p>
     <div><div class="eyebrow label">TikTok · Reels · Shorts caption</div><pre class="post" id="caption-text">${esc(caption)}</pre></div>
     <div class="actions">
       <button type="button" class="btn" id="copy-cap">Copy caption</button>
       <a class="btn" href="https://www.tiktok.com/upload" target="_blank" rel="noopener">Open TikTok upload</a>
-    </div>
-    <div class="gowith">
-      <div class="eyebrow">Recommended: say it in Gowith</div>
-      <p class="count">Add this line to your post or as a reply under it. <code>-lead</code> names who led, <code>-through</code> what helped: honest credit, written as grammar. Gowith is a CC0 notation by <a href="https://gist.github.com/AndyAyrey/834dd4f60acaa61611d33a66d190309c" target="_blank" rel="noopener">@AndyAyrey</a>.</p>
-      <pre class="post" id="gowith-text">${esc(gowithText(idea))}</pre>
-      <div class="actions"><button type="button" class="btn" id="copy-gw">Copy Gowith line</button></div>
+      <button type="button" class="btn" id="copy-link">Copy link to this idea</button>
     </div>
     <p class="count">Then drop your post link in the Telegram group with /ember so the Tenders can count it.</p>`;
-  copyButton(document.getElementById("copy-gw"), gowithText(idea), document.getElementById("gowith-text"));
-  copyButton(document.getElementById("copy-x"), text, document.getElementById("post-text"));
+  copyButton(document.getElementById("copy-x"), main, document.getElementById("post-text"));
+  if (reply) copyButton(document.getElementById("copy-reply"), reply, document.getElementById("reply-text"));
   copyButton(document.getElementById("copy-cap"), caption, document.getElementById("caption-text"));
+  copyButton(document.getElementById("copy-link"), link, null);
 }
 
 function draw() {
-  const pool = matches();
-  count.textContent = `${pool.length} idea${pool.length === 1 ? "" : "s"} match`;
-  if (!pool.length) return render(null);
-  let pick = pool[Math.floor(Math.random() * pool.length)];
-  if (pool.length > 1) while (pick === last) pick = pool[Math.floor(Math.random() * pool.length)];
-  last = pick;
-  render(pick);
+  const p = pool();
+  showCount(p);
+  if (!p.total) return render(null);
+  let idea;
+  for (let tries = 0; tries < 5; tries++) {
+    if (p.cur.length && (!p.fams.length || Math.random() < 0.2)) {
+      const c = p.cur[Math.floor(Math.random() * p.cur.length)];
+      idea = Object.assign({ code: `c-${c.k}` }, c.idea);
+    } else {
+      let r = Math.floor(Math.random() * p.fams.reduce((n, x) => n + x.n, 0));
+      const pick = p.fams.find(x => (r -= x.n) < 0);
+      const fam = FAMILIES[pick.fi];
+      const idx = Math.floor(Math.random() * pick.n);
+      // store every idea under its canonical "Any" index so links always decode the same way
+      const canonical = p.f.help === "Any" || !fam.ai ? idx : idx * 2 + (p.f.help === "With AI" ? 1 : 0);
+      idea = Object.assign({ code: `e-${pick.fi}-${canonical.toString(36)}` }, famDecode(pick.fi, canonical, "Any"));
+    }
+    if (idea.code !== lastCode) break;
+  }
+  lastCode = idea.code;
+  render(idea);
 }
 
 form.addEventListener("submit", e => { e.preventDefault(); draw(); });
-form.addEventListener("change", () => {
-  const n = matches().length;
-  count.textContent = `${n} idea${n === 1 ? "" : "s"} match`;
-});
-draw();
+form.addEventListener("change", () => showCount(pool()));
+const shared = fromCode(location.hash.slice(1));
+if (shared) { showCount(pool()); lastCode = shared.code; render(shared); } else draw();
 
 document.getElementById("week").innerHTML = WEEK.map((d, i) =>
   `<div class="day"><div class="num">Day ${i + 1}</div><h3>${d.title}</h3><p>${d.text}</p></div>`).join("");

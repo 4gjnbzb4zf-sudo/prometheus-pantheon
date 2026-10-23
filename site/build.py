@@ -172,7 +172,12 @@ def build_hearth():
 def build_lore():
     chapter = (ROOT / "lore" / "chapter-0-the-first-ember.md").read_text()
     rules = (ROOT / "lore" / "README.md").read_text()
-    body = f"""<article class="prose prose--poem">
+    origins = (ROOT / "lore" / "origins.md").read_text()
+    body = f"""<section class="prose" id="origins">
+<div class="chapter-mark">Where it comes from</div>
+{markdown(origins)}
+</section>
+<article class="prose prose--poem">
 <div class="chapter-mark">Chapter 0</div>
 {markdown(chapter)}
 </article>
